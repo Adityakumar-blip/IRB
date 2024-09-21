@@ -54,8 +54,10 @@ import CustomHeader from '../../component/customHeader/index';
 import NetworkLogger from 'react-native-network-logger';
 // import { Singular, sngLog } from "singular-react-native";
 import DeviceInfo from 'react-native-device-info';
+import {useTranslation} from 'react-i18next';
 
 const Dashboard = props => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const store = useSelector(state => state.state.CHECK_DEMO_SURVEY);
   let renderCount = 0;
@@ -735,7 +737,7 @@ const Dashboard = props => {
                         />
                         <View style={styles.dashboardPointStatusText}>
                           <Text style={styles.cSurvFirstTextStyleNew}>
-                            {I18n.t(globalText._yourRedeemable)}
+                            {t(globalText._yourRedeemable)}
                           </Text>
                           <Text style={styles.cSurvFirstTextStyleNew}>
                             {I18n.t(globalText._balanceToday)}

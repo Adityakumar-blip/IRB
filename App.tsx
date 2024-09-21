@@ -6,6 +6,8 @@ import NetworkModal from './src/component/NetworkModal/NetworkModal';
 import SharedService from './src/services/sharedService';
 import ReduxStore from './src/store';
 import {Singular, SingularConfig} from 'singular-react-native';
+import {I18nextProvider} from 'react-i18next';
+import i18n from './src/i18n/index';
 
 const App = () => {
   const store = createStore(ReduxStore);
@@ -45,8 +47,10 @@ const App = () => {
   return (
     <>
       <Provider store={store}>
-        <NetworkModal stateStatus={networkModal} />
-        <Init />
+        <I18nextProvider i18n={i18n}>
+          <NetworkModal stateStatus={networkModal} />
+          <Init />
+        </I18nextProvider>
       </Provider>
     </>
   );

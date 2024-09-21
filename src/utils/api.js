@@ -1,8 +1,8 @@
-import { Component } from "react";
+import {Component} from 'react';
 
 export default class Api extends Component {
   // static environment = 'dev';
-  static environment = "prod";
+  static environment = 'prod';
 
   // Auth related endpoints
   // static authBaseUrl = Api.getAuthBaseUrl();
@@ -204,15 +204,15 @@ export default class Api extends Component {
 
   // Get auth base URL of APIs
   static getAuthBaseUrl() {
-    let url = "";
+    let url = '';
     const env = Api.environment;
     switch (env) {
-      case "prod":
-        url = "";
+      case 'prod':
+        url = '';
         break;
       // Default: development server
       default:
-        url = "sample";
+        url = 'sample';
         break;
     }
     return url;
@@ -220,20 +220,20 @@ export default class Api extends Component {
 
   // Get after auth base URL of APIs
   static getApiBaseUrl() {
-    let url = "";
+    let url = '';
     const env = Api.environment;
     switch (env) {
-      case "prod":
+      case 'prod':
         // url = "https://obiapp.opinionbureau.com/api3";
         url = 'https://obiapp.opinionbureau.com/api';
-        // url = "https://obiapp.opinionbureau.com/api2";
+        // url = 'https://obiapp.opinionbureau.com/api2';
         break;
       // Default: development server
       default:
         // url = 'http://192.168.0.200:3000/api';
         // url = 'https://obiapp.opinionbureau.com/api';
 
-        url = "https://obiapp.opinionbureau.com/api2";
+        url = 'https://obiapp.opinionbureau.com/api2';
         // url = 'http://192.168.0.177:3000/api';
         // url = 'http://13.234.126.109:3002/api';
         // url = 'http://localhost:3002/api';

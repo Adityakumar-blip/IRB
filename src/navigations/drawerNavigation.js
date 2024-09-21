@@ -555,8 +555,7 @@ function Home() {
         headerShown: false,
         drawerType: 'front',
       }}
-      backBehavior="history"
-      useLegacyImplementation>
+      backBehavior="history">
       <Drawer.Screen name="Dashboard" component={Dashboard} />
       <Drawer.Screen name="Account_statement" component={Account_statement} />
       <Drawer.Screen name="Notifications" component={Notifications} />

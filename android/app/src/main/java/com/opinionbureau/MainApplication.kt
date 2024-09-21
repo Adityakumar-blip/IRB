@@ -1,4 +1,4 @@
-package com.irb
+package com.opinionbureau
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -33,6 +33,7 @@ import GlobalImages from '../../helper/globalImages';
 
 import CustomButton from '../customButton/index';
 import CustomRadioButton from '../customRadio/index';
+import {toastShow} from '../../utils/customFunctions';
 
 const CustomHeader = props => {
   const {
@@ -113,6 +114,7 @@ const CustomHeader = props => {
     const {data, message} = await AuthApi.getDataFromServer(
       Api.myProfileGetCategorySubcategory,
     );
+    console.log('data=========', data, message);
     if (!data) {
       if (message) {
         toastShow(message);
