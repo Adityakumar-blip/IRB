@@ -6,8 +6,8 @@
 /* eslint-disable react/jsx-key */
 //CustomQuestionAnswerForm
 
-import React, { useEffect, useState } from "react";
-import CustomRadioButton from "../customRadio/index";
+import React, {useEffect, useState} from 'react';
+import CustomRadioButton from '../customRadio/index';
 
 import {
   ScrollView,
@@ -17,37 +17,37 @@ import {
   TouchableOpacity,
   Alert,
   Modal,
-} from "react-native";
-import CustomButton from "../customButton";
-import CustomDynamicForm from "../customDynamicForm/index";
-import CustomRadioAndAns from "../CustomRadioAndAns/index";
-import CustomCheckBoxAns from "../CustomCheckBoxAns/index";
-import CustomDropDownAnswer from "../CustomDropwDownAnswer/index";
-import styles from "../../helper/globalStyles";
-import { globalText } from "../../helper/globalText";
-import Api from "../../utils/api";
-import AuthApi from "../../utils/authApi";
-import CustomLoader from "../customLoader/index";
-import { useFocusEffect } from "@react-navigation/native";
-import CustomTextInput from "../customTextInput";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import CustomGridRadioAns from "../customGridRadioAns/index";
-import CustomRadioCheckBoxMultiSelect from "../customRadioCheckBoxMultiSelect/index";
-import I18n from "../../i18n/index";
+} from 'react-native';
+import CustomButton from '../customButton';
+import CustomDynamicForm from '../customDynamicForm/index';
+import CustomRadioAndAns from '../CustomRadioAndAns/index';
+import CustomCheckBoxAns from '../CustomCheckBoxAns/index';
+import CustomDropDownAnswer from '../CustomDropwDownAnswer/index';
+import styles from '../../helper/globalStyles';
+import {globalText} from '../../helper/globalText';
+import Api from '../../utils/api';
+import AuthApi from '../../utils/authApi';
+import CustomLoader from '../customLoader/index';
+import {useFocusEffect} from '@react-navigation/native';
+import CustomTextInput from '../customTextInput';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import CustomGridRadioAns from '../customGridRadioAns/index';
+import CustomRadioCheckBoxMultiSelect from '../customRadioCheckBoxMultiSelect/index';
+import I18n from '../../i18n/index';
 import {
   toastShow,
   getAsyncStorage,
   setAsyncStorage,
-} from "../../utils/customFunctions";
-import CustomCheckBox from "../../component/customCheckBox/index";
-import FastImage from "react-native-fast-image";
-import GlobalImages from "../../helper/globalImages";
-const CustomQuestionAnswerForm = (props) => {
-  const { onSaveAnswer, sub_category_type_id, onChnageTab, onSaveUserData } =
+} from '../../utils/customFunctions';
+import CustomCheckBox from '../../component/customCheckBox/index';
+import FastImage from '../FastImage';
+import GlobalImages from '../../helper/globalImages';
+const CustomQuestionAnswerForm = props => {
+  const {onSaveAnswer, sub_category_type_id, onChnageTab, onSaveUserData} =
     props;
   const [loader, setLoader] = useState(false);
   const [isOpenIndex, setOpenIndex] = useState(-1);
-  const [isOpenIndexName, setOpenIndexName] = useState("");
+  const [isOpenIndexName, setOpenIndexName] = useState('');
   const [isDataLoaded, setDataLoaded] = useState(false);
   const [isSeeMore, setSeeMore] = useState(true);
   const [ischeckFirst, setcheckFirst] = useState(false);
@@ -68,7 +68,7 @@ const CustomQuestionAnswerForm = (props) => {
   const [isYes, setYes] = useState(false);
   const [isNo, setNo] = useState(false);
 
-  const [childQuestionConsent, setChildQuestionConsent] = useState("");
+  const [childQuestionConsent, setChildQuestionConsent] = useState('');
 
   const [data, setData] = useState();
 
@@ -92,7 +92,7 @@ const CustomQuestionAnswerForm = (props) => {
       return () => {
         cleanUp();
       };
-    }, [sub_category_type_id])
+    }, [sub_category_type_id]),
   );
 
   const cleanUp = () => {
@@ -103,8 +103,8 @@ const CustomQuestionAnswerForm = (props) => {
     setCategoryData(null);
   };
 
-  const checkQuestionConsent = (item) => {
-    if (item.hasOwnProperty("isCheckbox")) {
+  const checkQuestionConsent = item => {
+    if (item.hasOwnProperty('isCheckbox')) {
       if (item.categoryConsent) {
         return true;
       } else {
@@ -130,7 +130,7 @@ const CustomQuestionAnswerForm = (props) => {
     await onQuestionData(0);
   };
 
-  const onQuestionData = async (currentPage) => {
+  const onQuestionData = async currentPage => {
     // let page = currentPage ? currentPage : paginationData.currentPage;
     // let limit = 10;
     const taskContent = [];
@@ -147,7 +147,7 @@ const CustomQuestionAnswerForm = (props) => {
     // const enPoint = `${
     //     Api.myFamilyGetQuestionListing
     // }?skip=${0}&limit=${1000}&sub_category_type_id=${2}&none_of_the_above=${0}`;
-    const { data, message } = await AuthApi.getDataFromServer(enPoint);
+    const {data, message} = await AuthApi.getDataFromServer(enPoint);
     if (!data) {
       setLoader(false);
       setDataLoaded(true);
@@ -176,7 +176,7 @@ const CustomQuestionAnswerForm = (props) => {
     // }
   };
 
-  const saveQuestionConsent = async (questionData) => {
+  const saveQuestionConsent = async questionData => {
     // alert(JSON.stringify(questionData));
     setLoader(true);
     const payload = {
@@ -232,7 +232,7 @@ const CustomQuestionAnswerForm = (props) => {
     const enPoint = `${
       Api.myFamilyGetSelectedAnswer
     }?&skip=${0}&limit=${10000}&question_id=${getAllIds}`;
-    const { data, message } = await AuthApi.getDataFromServer(enPoint);
+    const {data, message} = await AuthApi.getDataFromServer(enPoint);
     if (!data) {
       setLoader(false);
       setQuestionsData([...taskContent, ...isValueData]);
@@ -248,8 +248,8 @@ const CustomQuestionAnswerForm = (props) => {
         await isValueData.map(async (item, index) => {
           if (item.question_id == item1.question_id) {
             switch (item.question_type) {
-              case "1":
-                await item.answer_arr.map((i) => {
+              case '1':
+                await item.answer_arr.map(i => {
                   if (i.question_answer_id == item1.answer) {
                     i.selected = true;
                     selectedData.push(i.question_answer_id);
@@ -260,8 +260,8 @@ const CustomQuestionAnswerForm = (props) => {
                 item.selectedData = selectedData;
                 // onRemoveSelected(item, selectedData);
                 break;
-              case "2":
-                await item.answer_arr.map((i) => {
+              case '2':
+                await item.answer_arr.map(i => {
                   if (i.question_answer_id == item1.answer) {
                     i.selected = true;
                     selectedData.push(i.question_answer_id);
@@ -271,38 +271,38 @@ const CustomQuestionAnswerForm = (props) => {
                 });
                 item.selectedData = selectedData;
                 break;
-              case "3":
-                await item.answer_arr.map((i) => {
+              case '3':
+                await item.answer_arr.map(i => {
                   if (
                     item1.answer
-                      .split(",")
+                      .split(',')
                       .includes(i.question_answer_id.toString())
                   ) {
                     i.selected = true;
                     // selectedData.push(i.question_answer_id);
                   }
                 });
-                item.selectedData = item1.answer.split(",");
+                item.selectedData = item1.answer.split(',');
                 break;
-              case "4":
-                await item.answer_arr.map((i) => {
+              case '4':
+                await item.answer_arr.map(i => {
                   if (
                     item1.answer
-                      .split(",")
+                      .split(',')
                       .includes(i.question_answer_id.toString())
                   ) {
                     i.selected = true;
                     // selectedData.push(i.question_answer_id);
                   }
                 });
-                item.selectedData = item1.answer.split(",");
+                item.selectedData = item1.answer.split(',');
                 break;
-              case "5":
+              case '5':
                 item.answer = item1.answer;
                 item.question_answer_id = item1.answer;
                 break;
-              case "6":
-                item.gird_sub_que_arr.map((i) => {
+              case '6':
+                item.gird_sub_que_arr.map(i => {
                   if (i.grid_subquestion_id == item1.grid_subquestion_id) {
                     i.ansId = item1.answer;
                     // i.answer = item1.answer;
@@ -315,16 +315,16 @@ const CustomQuestionAnswerForm = (props) => {
                   item.selectedData = [...new Set(item.selectedData)];
                 }
                 break;
-              case "7":
-                return item.answer_arr.map((i) => {
+              case '7':
+                return item.answer_arr.map(i => {
                   let value = {};
                   let sel = [];
                   if (
                     item1.answer
-                      .split(",")
+                      .split(',')
                       .includes(i.question_answer_id.toString())
                   ) {
-                    selectedData = item1.answer.split(",");
+                    selectedData = item1.answer.split(',');
                     i[item1.grid_subquestion_id] = item1.grid_subquestion_id;
                     value = {
                       ansId: i.question_answer_id,
@@ -351,8 +351,8 @@ const CustomQuestionAnswerForm = (props) => {
                     item.selectedData = [...new Set(item.selectedData)];
                   }
                 });
-              case "8":
-                await item.gird_sub_que_arr.map((i) => {
+              case '8':
+                await item.gird_sub_que_arr.map(i => {
                   if (i.grid_subquestion_id == item1.grid_subquestion_id) {
                     i.answer = item1.answer;
                     item;
@@ -367,8 +367,8 @@ const CustomQuestionAnswerForm = (props) => {
             item.child_que_arr.map(async (childItem, childIndex) => {
               if (childItem.child_question_id == item1.question_id) {
                 switch (childItem.question_type) {
-                  case "1":
-                    await childItem.child_ans_arr.map((i) => {
+                  case '1':
+                    await childItem.child_ans_arr.map(i => {
                       if (i.question_answer_id == item1.answer) {
                         i.selected = true;
                       } else {
@@ -376,8 +376,8 @@ const CustomQuestionAnswerForm = (props) => {
                       }
                     });
                     break;
-                  case "2":
-                    await childItem.child_ans_arr.map((i) => {
+                  case '2':
+                    await childItem.child_ans_arr.map(i => {
                       if (i.question_answer_id == item1.answer) {
                         i.selected = true;
                       } else {
@@ -385,11 +385,11 @@ const CustomQuestionAnswerForm = (props) => {
                       }
                     });
                     break;
-                  case "3":
-                    await childItem.child_ans_arr.map((i) => {
+                  case '3':
+                    await childItem.child_ans_arr.map(i => {
                       if (
                         item1.answer
-                          .split(",")
+                          .split(',')
                           .includes(i.question_answer_id.toString())
                       ) {
                         // if (i.question_answer_id == item1.answer) {
@@ -397,11 +397,11 @@ const CustomQuestionAnswerForm = (props) => {
                       }
                     });
                     break;
-                  case "4":
-                    await childItem.child_ans_arr.map((i) => {
+                  case '4':
+                    await childItem.child_ans_arr.map(i => {
                       if (
                         item1.answer
-                          .split(",")
+                          .split(',')
                           .includes(i.question_answer_id.toString())
                       ) {
                         // if (i.question_answer_id == item1.answer) {
@@ -409,12 +409,12 @@ const CustomQuestionAnswerForm = (props) => {
                       }
                     });
                     break;
-                  case "5":
+                  case '5':
                     childItem.answer = item1.answer;
                     childItem.question_answer_id = item1.answer;
                     break;
-                  case "6":
-                    childItem.child_grid_arr.map((i) => {
+                  case '6':
+                    childItem.child_grid_arr.map(i => {
                       if (i.grid_subquestion_id == item1.grid_subquestion_id) {
                         i.ansId = item1.answer;
                         // i.answer = item1.answer;
@@ -422,13 +422,13 @@ const CustomQuestionAnswerForm = (props) => {
                       }
                     });
                     break;
-                  case "7":
-                    return childItem.child_ans_arr.map((i) => {
+                  case '7':
+                    return childItem.child_ans_arr.map(i => {
                       let value = {};
                       let sel = [];
                       if (
                         item1.answer
-                          .split(",")
+                          .split(',')
                           .includes(i.question_answer_id.toString())
                       ) {
                         // if (i.question_answer_id == item1.answer) {
@@ -457,8 +457,8 @@ const CustomQuestionAnswerForm = (props) => {
                         // }
                       }
                     });
-                  case "8":
-                    await childItem.gird_sub_que_arr.map((i) => {
+                  case '8':
+                    await childItem.gird_sub_que_arr.map(i => {
                       if (i.grid_subquestion_id == item1.grid_subquestion_id) {
                         i.answer = item1.answer;
                         i.question_answer_id = item1.answer;
@@ -503,7 +503,7 @@ const CustomQuestionAnswerForm = (props) => {
           item1.child_que_arr &&
           item1.child_que_arr.length > 0 &&
           item1.child_que_arr.map((item, index) => {
-            let checkData = item.parent_question_answer_id.split(",");
+            let checkData = item.parent_question_answer_id.split(',');
             selectedData.map((i, j) => {
               if (checkData.indexOf(i.toString()) !== -1) {
                 cnt = cnt + 1;
@@ -516,28 +516,28 @@ const CustomQuestionAnswerForm = (props) => {
             item1.child_que_arr.length > 0 &&
             item1.child_que_arr.map((item, index) => {
               switch (item.question_type) {
-                case "1":
+                case '1':
                   item.child_ans_arr &&
                     item.child_ans_arr.length > 0 &&
                     item.child_ans_arr.map((i, j) => {
                       i.selected = false;
                     });
                   break;
-                case "2":
+                case '2':
                   item.child_ans_arr &&
                     item.child_ans_arr.length > 0 &&
                     item.child_ans_arr.map((i, j) => {
                       i.selected = false;
                     });
                   break;
-                case "3":
+                case '3':
                   item.child_ans_arr &&
                     item.child_ans_arr.length > 0 &&
                     item.child_ans_arr.map((i, j) => {
                       i.selected = false;
                     });
                   break;
-                case "4":
+                case '4':
                   item.child_ans_arr &&
                     item.child_ans_arr.length > 0 &&
                     item.child_ans_arr.map((i, j) => {
@@ -545,10 +545,10 @@ const CustomQuestionAnswerForm = (props) => {
                     });
                   break;
 
-                case "5":
-                  item.answer = "";
+                case '5':
+                  item.answer = '';
                   break;
-                case "6":
+                case '6':
                   item.child_grid_arr &&
                     item.child_grid_arr.length > 0 &&
                     item.child_grid_arr.map((i, j) => {
@@ -557,7 +557,7 @@ const CustomQuestionAnswerForm = (props) => {
                       delete i.question_answer_id;
                     });
                   break;
-                case "7":
+                case '7':
                   item.child_grid_arr &&
                     item.child_grid_arr.length > 0 &&
                     item.child_grid_arr.map((iG, jG) => {
@@ -569,7 +569,7 @@ const CustomQuestionAnswerForm = (props) => {
                         });
                     });
                   break;
-                case "8":
+                case '8':
                   item.child_grid_arr &&
                     item.child_grid_arr.length > 0 &&
                     item.child_grid_arr.map((iG, jG) => {
@@ -589,7 +589,7 @@ const CustomQuestionAnswerForm = (props) => {
   const onCallSelection = (quesValue, ansData, subItem) => {
     questionsData.map((item1, index1) => {
       switch (quesValue.question_type) {
-        case "1":
+        case '1':
           if (quesValue.question_id == item1.question_id) {
             let selectedData = [];
             item1.answer_arr.map((item, index) => {
@@ -600,14 +600,14 @@ const CustomQuestionAnswerForm = (props) => {
                 item.selected = false;
               }
             });
-            sub_category_type_id == "7" &&
+            sub_category_type_id == '7' &&
               onCheckUserTabData(selectedData, item1);
             onRemoveSelected(item1, selectedData);
             item1.selectedData = selectedData;
           }
           setQuestionsData([...questionsData]);
           break;
-        case "2":
+        case '2':
           if (quesValue.question_id == item1.question_id) {
             let selectedData = [];
             item1.answer_arr.map((item, index) => {
@@ -624,12 +624,12 @@ const CustomQuestionAnswerForm = (props) => {
           setQuestionsData([...questionsData]);
           break;
 
-        case "3":
+        case '3':
           if (quesValue.question_id == item1.question_id) {
             let selectedData = [];
             item1.answer_arr.map((item, index) => {
-              if (ansData.key != "N") {
-                if (item.key == "N") {
+              if (ansData.key != 'N') {
+                if (item.key == 'N') {
                   // selectedData.push(item.question_answer_id);
                   item.selected = false;
                 }
@@ -644,7 +644,7 @@ const CustomQuestionAnswerForm = (props) => {
                   }
                 }
               } else {
-                if (ansData.key == "N" && item.key == "N") {
+                if (ansData.key == 'N' && item.key == 'N') {
                   if (ansData.question_answer_id == item.question_answer_id) {
                     selectedData = [];
                     selectedData.push(item.question_answer_id);
@@ -663,7 +663,7 @@ const CustomQuestionAnswerForm = (props) => {
           setQuestionsData([...questionsData]);
           break;
 
-        case "4":
+        case '4':
           if (quesValue.question_id == item1.question_id) {
             let selectedData = [];
             let val = [];
@@ -678,8 +678,8 @@ const CustomQuestionAnswerForm = (props) => {
               if (ansData.length > 0) {
                 if (val.indexOf(item.question_answer_id) !== -1) {
                   // if (i.question_answer_id == item.question_answer_id) {
-                  if (ansData[ansData.length - 1].key != "N") {
-                    if (item.key == "N") {
+                  if (ansData[ansData.length - 1].key != 'N') {
+                    if (item.key == 'N') {
                       item.selected = false;
                     } else {
                       item.selected = true;
@@ -687,7 +687,7 @@ const CustomQuestionAnswerForm = (props) => {
                     }
                     setQuestionsData([...questionsData]);
                   } else {
-                    if (item.key == "N") {
+                    if (item.key == 'N') {
                       selectedData.push(item.question_answer_id);
                       item.selected = true;
                     } else {
@@ -709,14 +709,14 @@ const CustomQuestionAnswerForm = (props) => {
           setQuestionsData([...questionsData]);
           break;
 
-        case "5":
+        case '5':
           if (quesValue.question_id == item1.question_id) {
             item1.answer = ansData;
           }
           setQuestionsData([...questionsData]);
           break;
 
-        case "6":
+        case '6':
           if (quesValue.question_id == item1.question_id) {
             let selectedData = [];
             item1.gird_sub_que_arr = ansData;
@@ -733,7 +733,7 @@ const CustomQuestionAnswerForm = (props) => {
           }
           setQuestionsData([...questionsData]);
           break;
-        case "7":
+        case '7':
           if (quesValue.question_id == item1.question_id) {
             let selectedData = [];
             item1.answer_arr = ansData;
@@ -755,7 +755,7 @@ const CustomQuestionAnswerForm = (props) => {
       }
     });
     setQuestionsData([...questionsData]);
-    if (sub_category_type_id == "7") {
+    if (sub_category_type_id == '7') {
       onDummySaveData();
     }
   };
@@ -774,13 +774,13 @@ const CustomQuestionAnswerForm = (props) => {
       isAllData &&
       isAllData.child_que_arr &&
       isAllData.child_que_arr.length > 0 &&
-      isAllData.child_que_arr[0].parent_question_answer_id.split(",");
+      isAllData.child_que_arr[0].parent_question_answer_id.split(',');
     if (isChildValue && isChildValue.length > 0) {
       let isValue = isChildValue.indexOf(selectedId.toString()) !== -1;
       if (isValue) {
-        await onChnageTab("show");
+        await onChnageTab('show');
       } else {
-        await onChnageTab("unShow");
+        await onChnageTab('unShow');
       }
     }
   };
@@ -793,7 +793,7 @@ const CustomQuestionAnswerForm = (props) => {
           item1.child_que_arr.map((item, index) => {
             if (childQuestion.child_question_id == item.child_question_id) {
               switch (item.question_type) {
-                case "1":
+                case '1':
                   item.child_ans_arr &&
                     item.child_ans_arr.length > 0 &&
                     item.child_ans_arr.map((i, j) => {
@@ -807,7 +807,7 @@ const CustomQuestionAnswerForm = (props) => {
                     });
                   setQuestionsData([...questionsData]);
                   break;
-                case "2":
+                case '2':
                   item.child_ans_arr &&
                     item.child_ans_arr.length > 0 &&
                     item.child_ans_arr.map((i, j) => {
@@ -821,12 +821,12 @@ const CustomQuestionAnswerForm = (props) => {
                     });
                   setQuestionsData([...questionsData]);
                   break;
-                case "3":
+                case '3':
                   item.child_ans_arr &&
                     item.child_ans_arr.length > 0 &&
                     item.child_ans_arr.map((i, j) => {
-                      if (selectedItem.key != "N") {
-                        if (i.key == "N") {
+                      if (selectedItem.key != 'N') {
+                        if (i.key == 'N') {
                           item.selected = false;
                         }
                         if (
@@ -836,7 +836,7 @@ const CustomQuestionAnswerForm = (props) => {
                           i.selected = !i.selected;
                         }
                       } else {
-                        if (selectedItem.key == "N" && i.key == "N") {
+                        if (selectedItem.key == 'N' && i.key == 'N') {
                           item.selected = true;
                         } else {
                           item.selected = false;
@@ -845,7 +845,7 @@ const CustomQuestionAnswerForm = (props) => {
                     });
                   setQuestionsData([...questionsData]);
                   break;
-                case "4":
+                case '4':
                   let val = [];
                   selectedItem &&
                     selectedItem.length > 0 &&
@@ -858,16 +858,16 @@ const CustomQuestionAnswerForm = (props) => {
                       if (selectedItem.length > 0) {
                         if (val.indexOf(i.question_answer_id) !== -1) {
                           if (
-                            selectedItem[selectedItem.length - 1].key != "N"
+                            selectedItem[selectedItem.length - 1].key != 'N'
                           ) {
-                            if (i.key == "N") {
+                            if (i.key == 'N') {
                               i.selected = false;
                             } else {
                               i.selected = true;
                             }
                             setQuestionsData([...questionsData]);
                           } else {
-                            if (i.key == "N") {
+                            if (i.key == 'N') {
                               i.selected = !i.selected;
                             } else {
                               i.selected = false;
@@ -884,15 +884,15 @@ const CustomQuestionAnswerForm = (props) => {
                     });
                   setQuestionsData([...questionsData]);
                   break;
-                case "5":
+                case '5':
                   item.answer = selectedItem;
                   setQuestionsData([...questionsData]);
                   break;
-                case "6":
+                case '6':
                   item.child_grid_arr = selectedItem;
                   setQuestionsData([...questionsData]);
                   break;
-                case "7":
+                case '7':
                   item1.child_ans_arr = selectedItem;
                   setQuestionsData([...questionsData]);
                   break;
@@ -902,7 +902,7 @@ const CustomQuestionAnswerForm = (props) => {
       }
     });
     setQuestionsData([...questionsData]);
-    if (sub_category_type_id == "7") {
+    if (sub_category_type_id == '7') {
       onDummySaveData();
     }
   };
@@ -928,7 +928,7 @@ const CustomQuestionAnswerForm = (props) => {
     await questionsData.map((item1, index1) => {
       let mergeAnserIds = [];
       switch (item1.question_type) {
-        case "1":
+        case '1':
           item1.answer_arr &&
             item1.answer_arr.length > 0 &&
             item1.answer_arr.map((item, index) => {
@@ -941,11 +941,11 @@ const CustomQuestionAnswerForm = (props) => {
                   // answer: item.answer,
                   grid_subquestion_id: -1,
                 };
-                allData.push({ ...value });
+                allData.push({...value});
               }
             });
           break;
-        case "2":
+        case '2':
           item1.answer_arr &&
             item1.answer_arr.length > 0 &&
             item1.answer_arr.map((item, index) => {
@@ -958,12 +958,12 @@ const CustomQuestionAnswerForm = (props) => {
                   question_answer_id: item.question_answer_id,
                   grid_subquestion_id: -1,
                 };
-                allData.push({ ...value });
+                allData.push({...value});
               }
             });
           break;
 
-        case "3":
+        case '3':
           item1.answer_arr &&
             item1.answer_arr.length > 0 &&
             item1.answer_arr.map((item, index) => {
@@ -980,11 +980,11 @@ const CustomQuestionAnswerForm = (props) => {
               //  answer: item.answer,
               grid_subquestion_id: -1,
             };
-            allData.push({ ...value });
+            allData.push({...value});
           }
           break;
 
-        case "4":
+        case '4':
           item1.answer_arr &&
             item1.answer_arr.length > 0 &&
             item1.answer_arr.map((item, index) => {
@@ -1009,11 +1009,11 @@ const CustomQuestionAnswerForm = (props) => {
               //  answer: item.answer,
               grid_subquestion_id: -1,
             };
-            allData.push({ ...value });
+            allData.push({...value});
           }
           break;
 
-        case "5":
+        case '5':
           if (item1.answer && item1.answer.length > 0) {
             countForcheck = countForcheck + 1;
             let value = {
@@ -1023,11 +1023,11 @@ const CustomQuestionAnswerForm = (props) => {
               grid_subquestion_id: -1,
               question_answer_id: item1.answer,
             };
-            allData.push({ ...value });
+            allData.push({...value});
           }
           break;
 
-        case "6":
+        case '6':
           item1.gird_sub_que_arr &&
             item1.gird_sub_que_arr.length > 0 &&
             item1.gird_sub_que_arr.map((item, index) => {
@@ -1040,11 +1040,11 @@ const CustomQuestionAnswerForm = (props) => {
                   grid_subquestion_id: item.grid_subquestion_id,
                   question_answer_id: item.ansId,
                 };
-                allData.push({ ...value });
+                allData.push({...value});
               }
             });
           break;
-        case "7":
+        case '7':
           let isGriData = [];
           item1.answer_arr &&
             item1.answer_arr.length > 0 &&
@@ -1060,7 +1060,7 @@ const CustomQuestionAnswerForm = (props) => {
                       grid_subquestion_id: i.grid_subquestion_id,
                       question_answer_id: item.question_answer_id,
                     };
-                    isGriData.push({ ...value });
+                    isGriData.push({...value});
                   }
                 });
               }
@@ -1082,11 +1082,11 @@ const CustomQuestionAnswerForm = (props) => {
                   grid_subquestion_id: item.grid_subquestion_id,
                   question_answer_id: isGriddataIds.toString(),
                 };
-                allData.push({ ...value });
+                allData.push({...value});
               });
           }
           break;
-        case "8":
+        case '8':
           item1.gird_sub_que_arr.map((item, index) => {
             if (item.answer && item.answer.length > 0) {
               countForcheck = countForcheck + 1;
@@ -1097,7 +1097,7 @@ const CustomQuestionAnswerForm = (props) => {
                 grid_subquestion_id: item.grid_subquestion_id,
                 question_answer_id: item.answer,
               };
-              allData.push({ ...value });
+              allData.push({...value});
             }
           });
           break;
@@ -1110,7 +1110,7 @@ const CustomQuestionAnswerForm = (props) => {
         return allData;
       }
     } else {
-      Alert.alert("", I18n.t(globalText._pleaseSelectAtleastOneAnswer), [
+      Alert.alert('', I18n.t(globalText._pleaseSelectAtleastOneAnswer), [
         {
           //text: 'ok',
           text: I18n.t(globalText._ok),
@@ -1132,7 +1132,7 @@ const CustomQuestionAnswerForm = (props) => {
       if (item1.child_que_arr && item1.child_que_arr.length > 0) {
         await item1.child_que_arr.map(async (childItem, childIndex) => {
           switch (childItem.question_type) {
-            case "1":
+            case '1':
               (await childItem.child_ans_arr) &&
                 childItem.child_ans_arr.length > 0 &&
                 childItem.child_ans_arr.map((item, index) => {
@@ -1145,11 +1145,11 @@ const CustomQuestionAnswerForm = (props) => {
                       // answer: item.answer,
                       grid_subquestion_id: -1,
                     };
-                    allData.push({ ...value });
+                    allData.push({...value});
                   }
                 });
               break;
-            case "2":
+            case '2':
               (await childItem.child_ans_arr) &&
                 childItem.child_ans_arr.length > 0 &&
                 childItem.child_ans_arr.map((item, index) => {
@@ -1162,12 +1162,12 @@ const CustomQuestionAnswerForm = (props) => {
                       question_answer_id: item.question_answer_id,
                       grid_subquestion_id: -1,
                     };
-                    allData.push({ ...value });
+                    allData.push({...value});
                   }
                 });
               break;
 
-            case "3":
+            case '3':
               (await childItem.child_ans_arr) &&
                 childItem.child_ans_arr.length > 0 &&
                 childItem.child_ans_arr.map((item, index) => {
@@ -1184,11 +1184,11 @@ const CustomQuestionAnswerForm = (props) => {
                   //  answer: item.answer,
                   grid_subquestion_id: -1,
                 };
-                allData.push({ ...value });
+                allData.push({...value});
               }
               break;
 
-            case "4":
+            case '4':
               (await childItem.child_ans_arr) &&
                 childItem.child_ans_arr.length > 0 &&
                 childItem.child_ans_arr.map((item, index) => {
@@ -1213,11 +1213,11 @@ const CustomQuestionAnswerForm = (props) => {
                   //  answer: item.answer,
                   grid_subquestion_id: -1,
                 };
-                allData.push({ ...value });
+                allData.push({...value});
               }
               break;
 
-            case "5":
+            case '5':
               if (childItem.answer && childItem.answer.length > 0) {
                 countForcheck = countForcheck + 1;
                 let value = {
@@ -1227,11 +1227,11 @@ const CustomQuestionAnswerForm = (props) => {
                   grid_subquestion_id: -1,
                   question_answer_id: childItem.answer,
                 };
-                allData.push({ ...value });
+                allData.push({...value});
               }
               break;
 
-            case "6":
+            case '6':
               (await childItem.child_grid_arr) &&
                 childItem.child_grid_arr.length > 0 &&
                 childItem.child_grid_arr.map((item, index) => {
@@ -1244,11 +1244,11 @@ const CustomQuestionAnswerForm = (props) => {
                       grid_subquestion_id: item.grid_subquestion_id,
                       question_answer_id: item.ansId,
                     };
-                    allData.push({ ...value });
+                    allData.push({...value});
                   }
                 });
               break;
-            case "7":
+            case '7':
               let isGriData = [];
               (await childItem.child_ans_arr) &&
                 childItem.child_ans_arr.length > 0 &&
@@ -1264,7 +1264,7 @@ const CustomQuestionAnswerForm = (props) => {
                           grid_subquestion_id: i.grid_subquestion_id,
                           question_answer_id: item.question_answer_id,
                         };
-                        isGriData.push({ ...value });
+                        isGriData.push({...value});
                       }
                     });
                   }
@@ -1287,12 +1287,12 @@ const CustomQuestionAnswerForm = (props) => {
                         grid_subquestion_id: item.grid_subquestion_id,
                         question_answer_id: isGriddataIds.toString(),
                       };
-                      allData.push({ ...value });
+                      allData.push({...value});
                     }
                   });
               }
               break;
-            case "8":
+            case '8':
               await childItem.child_grid_arr.map((item, index) => {
                 if (item.answer && item.answer.length > 0) {
                   countForcheck = countForcheck + 1;
@@ -1303,7 +1303,7 @@ const CustomQuestionAnswerForm = (props) => {
                     grid_subquestion_id: item.grid_subquestion_id,
                     question_answer_id: item.answer,
                   };
-                  allData.push({ ...value });
+                  allData.push({...value});
                 }
               });
               break;
@@ -1498,9 +1498,8 @@ const CustomQuestionAnswerForm = (props) => {
           extraScrollHeight={140}
           nestedScrollEnabled
           enableOnAndroid={false}
-          enableAutomaticScroll={Platform.OS === "ios"}
-          contentContainerStyle={styles.flexGrowOne}
-        >
+          enableAutomaticScroll={Platform.OS === 'ios'}
+          contentContainerStyle={styles.flexGrowOne}>
           <ScrollView nestedScrollEnabled style={styles.padd15}>
             <View style={[styles.container, styles.paddB250]}>
               <View>
@@ -1552,14 +1551,13 @@ const CustomQuestionAnswerForm = (props) => {
                           inSideValue={
                             <View
                               pointerEvents={
-                                checkQuestionConsent(item1) ? "auto" : "none"
+                                checkQuestionConsent(item1) ? 'auto' : 'none'
                               }
                               style={
                                 checkQuestionConsent(item1)
-                                  ? { opacity: 1 }
-                                  : { opacity: 0.6 }
-                              }
-                            >
+                                  ? {opacity: 1}
+                                  : {opacity: 0.6}
+                              }>
                               {item1 &&
                                 item1.question_type == 1 &&
                                 item1.answer_arr.map((item, index) => (
@@ -1582,33 +1580,32 @@ const CustomQuestionAnswerForm = (props) => {
                                     style={{
                                       height:
                                         isOpenIndex == index1 &&
-                                        isOpenIndexName == "parent"
+                                        isOpenIndexName == 'parent'
                                           ? 200
                                           : undefined,
-                                    }}
-                                  >
+                                    }}>
                                     <CustomDropDownAnswer
                                       itemsData={item1.answer_arr}
                                       //zIndex={1}
                                       // defaultValue={I18n.t(globalText.bachDegree)}
-                                      labelKey={"question_answer_id"}
-                                      displayKey={"answer"}
-                                      onItemChoose={(item) => {
+                                      labelKey={'question_answer_id'}
+                                      displayKey={'answer'}
+                                      onItemChoose={item => {
                                         // setOpenIndexName('');
                                         setOpenIndex(-1);
                                         onCallSelection(item1, item);
                                       }}
                                       onOpen={() => {
-                                        setOpenIndexName("parent");
+                                        setOpenIndexName('parent');
                                         setOpenIndex(index1);
                                       }}
                                       onClose={() => {
-                                        setOpenIndexName("");
+                                        setOpenIndexName('');
                                         setOpenIndex(-1);
                                       }}
                                       isOpenCheck={
                                         isOpenIndex == index1 &&
-                                        isOpenIndexName == "parent"
+                                        isOpenIndexName == 'parent'
                                       }
                                     />
                                   </View>
@@ -1636,18 +1633,17 @@ const CustomQuestionAnswerForm = (props) => {
                                     style={{
                                       height:
                                         isOpenIndex == index1 &&
-                                        isOpenIndexName == "parent"
+                                        isOpenIndexName == 'parent'
                                           ? 200
                                           : undefined,
-                                    }}
-                                  >
+                                    }}>
                                     <CustomDropDownAnswer
                                       itemsData={item1.answer_arr}
                                       //     zIndex={1}
                                       // defaultValue={I18n.t(globalText.bachDegree)}
-                                      labelKey={"question_answer_id"}
-                                      displayKey={"answer"}
-                                      onItemChoose={(item) => {
+                                      labelKey={'question_answer_id'}
+                                      displayKey={'answer'}
+                                      onItemChoose={item => {
                                         // setOpenIndexName('');
                                         if (item.length > 0) {
                                           onCallSelection(item1, item);
@@ -1657,18 +1653,18 @@ const CustomQuestionAnswerForm = (props) => {
                                       }}
                                       multiple
                                       isArray={item1.answer_arr
-                                        .filter((it) => it.selected)
-                                        .map((i) => i.answer)}
+                                        .filter(it => it.selected)
+                                        .map(i => i.answer)}
                                       isOpenCheck={
                                         isOpenIndex == index1 &&
-                                        isOpenIndexName == "parent"
+                                        isOpenIndexName == 'parent'
                                       }
                                       onOpen={() => {
-                                        setOpenIndexName("parent");
+                                        setOpenIndexName('parent');
                                         setOpenIndex(index1);
                                       }}
                                       onClose={() => {
-                                        setOpenIndexName("");
+                                        setOpenIndexName('');
                                         setOpenIndex(-1);
                                       }}
                                     />
@@ -1680,11 +1676,11 @@ const CustomQuestionAnswerForm = (props) => {
                                 <View style={styles.pT10}>
                                   <CustomTextInput
                                     placeholder={I18n.t(
-                                      globalText._typeHereYourAnswer
+                                      globalText._typeHereYourAnswer,
                                     )}
                                     // multiline
                                     term={item1 && item1.answer}
-                                    onChangeText={(text) => {
+                                    onChangeText={text => {
                                       onCallSelection(item1, text);
                                     }}
                                   />
@@ -1696,12 +1692,10 @@ const CustomQuestionAnswerForm = (props) => {
                                   <CustomGridRadioAns
                                     ansData={item1.answer_arr}
                                     subQData={item1.gird_sub_que_arr}
-                                    onGridRadioSelected={(
-                                      subQuestionWithanswer
-                                    ) => {
+                                    onGridRadioSelected={subQuestionWithanswer => {
                                       onCallSelection(
                                         item1,
-                                        subQuestionWithanswer
+                                        subQuestionWithanswer,
                                       );
                                     }}
                                   />
@@ -1713,7 +1707,7 @@ const CustomQuestionAnswerForm = (props) => {
                                   <CustomRadioCheckBoxMultiSelect
                                     ansData={item1.answer_arr}
                                     subQData={item1.gird_sub_que_arr}
-                                    onGridRadioSelected={(answerWithSubID) => {
+                                    onGridRadioSelected={answerWithSubID => {
                                       onCallSelection(item1, answerWithSubID);
                                     }}
                                   />
@@ -1727,11 +1721,11 @@ const CustomQuestionAnswerForm = (props) => {
                                     <CustomTextInput
                                       headerName={item.subquestion}
                                       placeholder={I18n.t(
-                                        globalText._typeHereYourAnswer
+                                        globalText._typeHereYourAnswer,
                                       )}
                                       // multiline
                                       term={item && item.answer}
-                                      onChangeText={(text) => {
+                                      onChangeText={text => {
                                         item.answer = text;
                                       }}
                                     />
@@ -1750,7 +1744,7 @@ const CustomQuestionAnswerForm = (props) => {
                                 item1.child_que_arr.length > 0 &&
                                 item1.child_que_arr.map((item, index) => {
                                   let checkData =
-                                    item.parent_question_answer_id.split(",");
+                                    item.parent_question_answer_id.split(',');
                                   item.selectedChild = false;
                                   item1.selectedData.map((i, j) => {
                                     if (
@@ -1766,46 +1760,42 @@ const CustomQuestionAnswerForm = (props) => {
                                       <View
                                         key={index}
                                         style={
-                                          index == 0 ? { marginTop: 15 } : {}
-                                        }
-                                      >
+                                          index == 0 ? {marginTop: 15} : {}
+                                        }>
                                         <View style={styles.paddT10}>
                                           {item?.questionContent && (
                                             <View
                                               style={{
-                                                flexDirection: "row",
-                                                justifyContent: "center",
-                                                alignItems: "center",
+                                                flexDirection: 'row',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
                                                 marginLeft: -24,
                                                 marginBottom: 5,
-                                              }}
-                                            >
+                                              }}>
                                               <Text
                                                 style={{
                                                   fontSize: 11,
-                                                  width: "80%",
+                                                  width: '80%',
                                                 }}
-                                                numberOfLines={1}
-                                              >
+                                                numberOfLines={1}>
                                                 {/* {isCheckBox?'teue ':'false'} */}
                                                 {item?.questionContent}
                                               </Text>
                                               <Text
                                                 style={{
                                                   textDecorationLine:
-                                                    "underline",
+                                                    'underline',
                                                   padding: 2,
                                                   fontSize: 11,
                                                 }}
                                                 onPress={() => {
                                                   setChildQuestionConsent(
-                                                    item?.questionContent
+                                                    item?.questionContent,
                                                   );
 
                                                   setQuestionConsent(true);
                                                   // setConsent(true);
-                                                }}
-                                              >
+                                                }}>
                                                 {I18n.t(globalText.more)}
                                               </Text>
                                             </View>
@@ -1823,8 +1813,8 @@ const CustomQuestionAnswerForm = (props) => {
                                             }
                                             setWithDrawConsent={() => {
                                               let data = {
-                                                question_id: "",
-                                                categoryConsent: "",
+                                                question_id: '',
+                                                categoryConsent: '',
                                               };
                                               setWithDraw(true);
                                               setIndex(index);
@@ -1838,12 +1828,12 @@ const CustomQuestionAnswerForm = (props) => {
                                             }}
                                             setEmailConsent={() => {
                                               let data = {
-                                                question_id: "",
-                                                categoryConsent: "",
+                                                question_id: '',
+                                                categoryConsent: '',
                                               };
                                               if (
                                                 item &&
-                                                item["categoryConsent"] == 0
+                                                item['categoryConsent'] == 0
                                               ) {
                                                 data.categoryConsent = 1;
                                                 data.question_id =
@@ -1867,37 +1857,35 @@ const CustomQuestionAnswerForm = (props) => {
                                               <View
                                                 pointerEvents={
                                                   !item.hasOwnProperty(
-                                                    "isCheckBox"
+                                                    'isCheckBox',
                                                   ) &&
                                                   !item.hasOwnProperty(
-                                                    "categoryConsent"
+                                                    'categoryConsent',
                                                   )
-                                                    ? "auto"
+                                                    ? 'auto'
                                                     : item.categoryConsent == 1
-                                                    ? "auto"
-                                                    : "none"
+                                                    ? 'auto'
+                                                    : 'none'
                                                 }
                                                 style={
                                                   !item.hasOwnProperty(
-                                                    "isCheckBox"
+                                                    'isCheckBox',
                                                   ) &&
                                                   !item.hasOwnProperty(
-                                                    "categoryConsent"
+                                                    'categoryConsent',
                                                   )
-                                                    ? { opacity: 1 }
+                                                    ? {opacity: 1}
                                                     : item?.categoryConsent == 1
-                                                    ? { opacity: 1 }
-                                                    : { opacity: 0.6 }
-                                                }
-                                              >
+                                                    ? {opacity: 1}
+                                                    : {opacity: 0.6}
+                                                }>
                                                 {item &&
                                                   item.question_type == 1 &&
                                                   item.child_ans_arr.map(
                                                     (i, j) => (
                                                       <View
                                                         key={j}
-                                                        style={styles.pT10}
-                                                      >
+                                                        style={styles.pT10}>
                                                         <CustomRadioAndAns
                                                           checkValue={
                                                             i.selected
@@ -1907,12 +1895,12 @@ const CustomQuestionAnswerForm = (props) => {
                                                             onCallSelectionChild(
                                                               item1,
                                                               item,
-                                                              i
+                                                              i,
                                                             );
                                                           }}
                                                         />
                                                       </View>
-                                                    )
+                                                    ),
                                                   )}
                                                 {item &&
                                                   item.question_type == 2 && (
@@ -1923,13 +1911,12 @@ const CustomQuestionAnswerForm = (props) => {
                                                             isOpenIndex ==
                                                               index &&
                                                             isOpenIndexName ==
-                                                              "child" &&
+                                                              'child' &&
                                                             isSelectedChildId ==
                                                               item.child_question_id
                                                               ? 200
                                                               : undefined,
-                                                        }}
-                                                      >
+                                                        }}>
                                                         <CustomDropDownAnswer
                                                           itemsData={
                                                             item.child_ans_arr
@@ -1937,10 +1924,10 @@ const CustomQuestionAnswerForm = (props) => {
                                                           //zIndex={1}
                                                           // defaultValue={I18n.t(globalText.bachDegree)}
                                                           labelKey={
-                                                            "question_answer_id"
+                                                            'question_answer_id'
                                                           }
-                                                          displayKey={"answer"}
-                                                          onItemChoose={(i) => {
+                                                          displayKey={'answer'}
+                                                          onItemChoose={i => {
                                                             // setOpenIndexName(
                                                             //     '',
                                                             // );
@@ -1948,25 +1935,25 @@ const CustomQuestionAnswerForm = (props) => {
                                                             onCallSelectionChild(
                                                               item1,
                                                               item,
-                                                              i
+                                                              i,
                                                             );
                                                             // onCallSelection(item1, item);
                                                           }}
                                                           onOpen={() => {
                                                             setSelectedChildId(
-                                                              item.child_question_id
+                                                              item.child_question_id,
                                                             );
                                                             setOpenIndexName(
-                                                              "child"
+                                                              'child',
                                                             );
                                                             setOpenIndex(index);
                                                           }}
                                                           onClose={() => {
                                                             setSelectedChildId(
-                                                              null
+                                                              null,
                                                             );
                                                             setOpenIndexName(
-                                                              ""
+                                                              '',
                                                             );
                                                             setOpenIndex(-1);
                                                           }}
@@ -1974,7 +1961,7 @@ const CustomQuestionAnswerForm = (props) => {
                                                             isOpenIndex ==
                                                               index &&
                                                             isOpenIndexName ==
-                                                              "child" &&
+                                                              'child' &&
                                                             isSelectedChildId ==
                                                               item.child_question_id
                                                           }
@@ -1988,8 +1975,7 @@ const CustomQuestionAnswerForm = (props) => {
                                                     (i, j) => (
                                                       <View
                                                         key={j}
-                                                        style={styles.pT10}
-                                                      >
+                                                        style={styles.pT10}>
                                                         <CustomCheckBoxAns
                                                           checkValue={
                                                             i.selected
@@ -2000,13 +1986,13 @@ const CustomQuestionAnswerForm = (props) => {
                                                             onCallSelectionChild(
                                                               item1,
                                                               item,
-                                                              i
+                                                              i,
                                                             );
                                                             // onCallSelection(item1, item);
                                                           }}
                                                         />
                                                       </View>
-                                                    )
+                                                    ),
                                                   )}
                                                 {item &&
                                                   item.question_type == 4 && (
@@ -2017,13 +2003,12 @@ const CustomQuestionAnswerForm = (props) => {
                                                             isOpenIndex ==
                                                               index &&
                                                             isOpenIndexName ==
-                                                              "child" &&
+                                                              'child' &&
                                                             isSelectedChildId ==
                                                               item.child_question_id
                                                               ? 200
                                                               : undefined,
-                                                        }}
-                                                      >
+                                                        }}>
                                                         <CustomDropDownAnswer
                                                           itemsData={
                                                             item.child_ans_arr
@@ -2031,34 +2016,31 @@ const CustomQuestionAnswerForm = (props) => {
                                                           //     zIndex={1}
                                                           //defaultValue={I18n.t(globalText.bachDegree)}
                                                           labelKey={
-                                                            "question_answer_id"
+                                                            'question_answer_id'
                                                           }
-                                                          displayKey={"answer"}
+                                                          displayKey={'answer'}
                                                           isArray={item.child_ans_arr
                                                             .filter(
-                                                              (it) =>
-                                                                it.selected
+                                                              it => it.selected,
                                                             )
-                                                            .map(
-                                                              (i) => i.answer
-                                                            )}
-                                                          onItemChoose={(i) => {
+                                                            .map(i => i.answer)}
+                                                          onItemChoose={i => {
                                                             // setOpenIndexName('');
                                                             if (i.length > 0) {
                                                               onCallSelectionChild(
                                                                 item1,
                                                                 item,
-                                                                i
+                                                                i,
                                                               );
                                                               onCallSelection(
                                                                 item,
-                                                                i
+                                                                i,
                                                               );
                                                             } else {
                                                               onCallSelectionChild(
                                                                 item1,
                                                                 item,
-                                                                []
+                                                                [],
                                                               );
                                                             }
                                                           }}
@@ -2067,25 +2049,25 @@ const CustomQuestionAnswerForm = (props) => {
                                                             isOpenIndex ==
                                                               index &&
                                                             isOpenIndexName ==
-                                                              "child" &&
+                                                              'child' &&
                                                             isSelectedChildId ==
                                                               item.child_question_id
                                                           }
                                                           onOpen={() => {
                                                             setSelectedChildId(
-                                                              item.child_question_id
+                                                              item.child_question_id,
                                                             );
                                                             setOpenIndexName(
-                                                              "child"
+                                                              'child',
                                                             );
                                                             setOpenIndex(index);
                                                           }}
                                                           onClose={() => {
                                                             setSelectedChildId(
-                                                              null
+                                                              null,
                                                             );
                                                             setOpenIndexName(
-                                                              ""
+                                                              '',
                                                             );
                                                             setOpenIndex(-1);
                                                           }}
@@ -2098,19 +2080,17 @@ const CustomQuestionAnswerForm = (props) => {
                                                     <View style={styles.pT10}>
                                                       <CustomTextInput
                                                         placeholder={I18n.t(
-                                                          globalText._typeHereYourAnswer
+                                                          globalText._typeHereYourAnswer,
                                                         )}
                                                         // multiline
                                                         term={
                                                           item && item.answer
                                                         }
-                                                        onChangeText={(
-                                                          text
-                                                        ) => {
+                                                        onChangeText={text => {
                                                           onCallSelectionChild(
                                                             item1,
                                                             item,
-                                                            text
+                                                            text,
                                                           );
                                                         }}
                                                       />
@@ -2126,13 +2106,11 @@ const CustomQuestionAnswerForm = (props) => {
                                                         subQData={
                                                           item.child_grid_arr
                                                         }
-                                                        onGridRadioSelected={(
-                                                          subQuestionWithanswer
-                                                        ) => {
+                                                        onGridRadioSelected={subQuestionWithanswer => {
                                                           onCallSelectionChild(
                                                             item1,
                                                             item,
-                                                            subQuestionWithanswer
+                                                            subQuestionWithanswer,
                                                           );
                                                         }}
                                                       />
@@ -2148,13 +2126,11 @@ const CustomQuestionAnswerForm = (props) => {
                                                         subQData={
                                                           item.child_grid_arr
                                                         }
-                                                        onGridRadioSelected={(
-                                                          answerWithSubID
-                                                        ) => {
+                                                        onGridRadioSelected={answerWithSubID => {
                                                           onCallSelectionChild(
                                                             item1,
                                                             item,
-                                                            answerWithSubID
+                                                            answerWithSubID,
                                                           );
                                                         }}
                                                       />
@@ -2166,25 +2142,22 @@ const CustomQuestionAnswerForm = (props) => {
                                                     (i, j) => (
                                                       <View
                                                         key={j}
-                                                        style={styles.pT10}
-                                                      >
+                                                        style={styles.pT10}>
                                                         <CustomTextInput
                                                           headerName={
                                                             i.subquestion
                                                           }
                                                           placeholder={I18n.t(
-                                                            globalText._typeHereYourAnswer
+                                                            globalText._typeHereYourAnswer,
                                                           )}
                                                           // multiline
                                                           term={i && i.answer}
-                                                          onChangeText={(
-                                                            text
-                                                          ) => {
+                                                          onChangeText={text => {
                                                             i.answer = text;
                                                           }}
                                                         />
                                                       </View>
-                                                    )
+                                                    ),
                                                   )}
                                               </View>
                                             }
@@ -2199,10 +2172,10 @@ const CustomQuestionAnswerForm = (props) => {
                           isCheckBox={item1.isCheckbox}
                           emailConsent={item1?.categoryConsent}
                           setEmailConsent={() => {
-                            if (item1["categoryConsent"] == 0) {
-                              questionsData[index1]["categoryConsent"] = 1;
+                            if (item1['categoryConsent'] == 0) {
+                              questionsData[index1]['categoryConsent'] = 1;
                             } else {
-                              questionsData[index1]["categoryConsent"] = 0;
+                              questionsData[index1]['categoryConsent'] = 0;
                             }
 
                             setQuestionsData([...questionsData]);
@@ -2250,35 +2223,32 @@ const CustomQuestionAnswerForm = (props) => {
                 <View
                   style={{
                     flex: 1,
-                    justifyContent: "center",
-                    backgroundColor: "#rgba(0,0,0,0.5)",
-                    alignItems: "center",
-                  }}
-                >
+                    justifyContent: 'center',
+                    backgroundColor: '#rgba(0,0,0,0.5)',
+                    alignItems: 'center',
+                  }}>
                   <View
                     style={{
-                      height: "auto",
+                      height: 'auto',
                       width: 350,
                       opacity: 1,
-                      backgroundColor: "#FFF",
+                      backgroundColor: '#FFF',
                       borderRadius: 10,
-                      justifyContent: "center",
-                      alignItems: "center",
+                      justifyContent: 'center',
+                      alignItems: 'center',
                       padding: 20,
-                    }}
-                  >
+                    }}>
                     <TouchableOpacity
                       onPress={() => {
                         setQuestionConsent(false);
                         setWithDraw(false);
                       }}
                       style={{
-                        position: "absolute",
+                        position: 'absolute',
                         top: 10,
                         right: 10,
                         zIndex: 1,
-                      }}
-                    >
+                      }}>
                       <FastImage
                         style={{
                           height: 18,
@@ -2291,20 +2261,18 @@ const CustomQuestionAnswerForm = (props) => {
                     <Text
                       style={{
                         fontSize: 18,
-                        fontWeight: "bold",
+                        fontWeight: 'bold',
                         marginBottom: 20,
-                      }}
-                    >
+                      }}>
                       {I18n.t(globalText.Note)}
                     </Text>
                     {isQuestionConsent && (
                       <Text
                         style={{
-                          color: "black",
+                          color: 'black',
                           marginBottom: 15,
                           padding: 10,
-                        }}
-                      >
+                        }}>
                         {childQuestionConsent}
                       </Text>
                     )}
@@ -2312,30 +2280,27 @@ const CustomQuestionAnswerForm = (props) => {
                       <>
                         <Text
                           style={{
-                            color: "black",
+                            color: 'black',
                             marginBottom: 0,
                             padding: 10,
-                          }}
-                        >
+                          }}>
                           {I18n.t(globalText.are_you_sure)}
                         </Text>
 
                         <View
                           style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
                             marginBottom: 15,
-                            width: "35%",
-                          }}
-                        >
+                            width: '35%',
+                          }}>
                           <View
                             style={{
-                              flexDirection: "row",
-                              alignItems: "center",
-                            }}
-                          >
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                            }}>
                             <CustomRadioButton
                               checkValue={isYes}
                               onPressRadio={() => {
@@ -2343,17 +2308,16 @@ const CustomQuestionAnswerForm = (props) => {
                                 setNo(false);
                               }}
                             />
-                            <Text style={{ marginLeft: 10 }}>
+                            <Text style={{marginLeft: 10}}>
                               {I18n.t(globalText.yes)}
                             </Text>
                           </View>
 
                           <View
                             style={{
-                              flexDirection: "row",
-                              alignItems: "center",
-                            }}
-                          >
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                            }}>
                             <CustomRadioButton
                               checkValue={isNo}
                               onPressRadio={() => {
@@ -2361,7 +2325,7 @@ const CustomQuestionAnswerForm = (props) => {
                                 setNo(true);
                               }}
                             />
-                            <Text style={{ marginLeft: 10 }}>
+                            <Text style={{marginLeft: 10}}>
                               {I18n.t(globalText.no)}
                             </Text>
                           </View>
@@ -2371,12 +2335,11 @@ const CustomQuestionAnswerForm = (props) => {
                     {withDrawConsent && (
                       <View
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
                         <CustomButton
                           onPress={() => {
                             if (isYes) {

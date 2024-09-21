@@ -33,7 +33,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import FastImage from '../component/FastImage';
 import {useDispatch, useSelector} from 'react-redux';
 import globalImages from '../helper/globalImages';
 import styles from '../helper/globalStyles';

@@ -1,5 +1,5 @@
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import React, { useRef, useState, useEffect } from "react";
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   Alert,
   BackHandler,
@@ -13,58 +13,58 @@ import {
   useWindowDimensions,
   View,
   AppState,
-} from "react-native";
-import FastImage from "react-native-fast-image";
+} from 'react-native';
+import FastImage from '../../component/FastImage';
 import {
   Menu,
   MenuOption,
   MenuOptions,
   MenuProvider,
   MenuTrigger,
-} from "react-native-popup-menu";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-import Entypo from "react-native-vector-icons/Entypo";
-import Feather from "react-native-vector-icons/Feather";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import CustomBackground from "../../component/customBackground/index";
-import CustomButton from "../../component/customButton/index";
-import CustomDashBoradSurvey from "../../component/customDashBoardSurvey";
-import CustomLoader from "../../component/customLoader/index";
-import globalImages from "../../helper/globalImages";
-import styles from "../../helper/globalStyles";
-import { globalText } from "../../helper/globalText";
-import I18n from "../../i18n/index";
-import colors from "../../styles/colors";
-import Api from "../../utils/api";
-import AuthApi from "../../utils/authApi";
+} from 'react-native-popup-menu';
+// import Carousel, {Pagination} from 'react-native-snap-carousel';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import CustomBackground from '../../component/customBackground/index';
+import CustomButton from '../../component/customButton/index';
+import CustomDashBoradSurvey from '../../component/customDashBoardSurvey';
+import CustomLoader from '../../component/customLoader/index';
+import globalImages from '../../helper/globalImages';
+import styles from '../../helper/globalStyles';
+import {globalText} from '../../helper/globalText';
+import I18n from '../../i18n/index';
+import colors from '../../styles/colors';
+import Api from '../../utils/api';
+import AuthApi from '../../utils/authApi';
 import {
   getAsyncStorage,
   setAsyncStorage,
   toastShow,
-} from "../../utils/customFunctions";
-import DemoSurvey from "../DemoSurvey/index";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import SharedService from "../../services/sharedService/index";
-import { useNavigationState } from "@react-navigation/native";
-import UpdateEmailMobile from "../updateEmailMobile";
-import { useDispatch, useSelector } from "react-redux";
-import { SET_DEMO_SURVEY_STATUS } from "../../store/action";
-import CustomHeader from "../../component/customHeader/index";
-import NetworkLogger from "react-native-network-logger";
+} from '../../utils/customFunctions';
+import DemoSurvey from '../DemoSurvey/index';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import SharedService from '../../services/sharedService/index';
+import {useNavigationState} from '@react-navigation/native';
+import UpdateEmailMobile from '../updateEmailMobile';
+import {useDispatch, useSelector} from 'react-redux';
+import {SET_DEMO_SURVEY_STATUS} from '../../store/action';
+import CustomHeader from '../../component/customHeader/index';
+import NetworkLogger from 'react-native-network-logger';
 // import { Singular, sngLog } from "singular-react-native";
-import DeviceInfo from "react-native-device-info";
+import DeviceInfo from 'react-native-device-info';
 
-const Dashboard = (props) => {
+const Dashboard = props => {
   const dispatch = useDispatch();
-  const store = useSelector((state) => state.state.CHECK_DEMO_SURVEY);
+  const store = useSelector(state => state.state.CHECK_DEMO_SURVEY);
   let renderCount = 0;
   const _carousel = useRef(null);
   const [categotyData, setCategotyData] = useState([]);
   const [isDashboardData, setDashboardData] = useState({});
   const [loader, setLoader] = useState(false);
   const [basicInfo, setBasicInfo] = useState({});
-  const [currencyValue, setCurrencyValue] = useState("");
+  const [currencyValue, setCurrencyValue] = useState('');
   const [modal, setModal] = useState(false);
   const [isLinkData, setLinkData] = useState(null);
   const [isLiveSurveyData, setLiveSurveyData] = useState([]);
@@ -74,27 +74,27 @@ const Dashboard = (props) => {
   const [isEditDetails, setEditDetails] = useState(false);
   const [isEmailPhoneVerify, setEmailPhoneVerify] = useState({
     status: false,
-    value: "",
+    value: '',
   });
 
-  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
-  const state = useNavigationState((state) => state);
+  const {width: screenWidth, height: screenHeight} = useWindowDimensions();
+  const state = useNavigationState(state => state);
   const routeName = state.routeNames[state.index];
   const isFocused = useIsFocused();
 
   useFocusEffect(
     React.useCallback(() => {
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
       // const subscribe = AppState.addEventListener('change', handleChange);
       return () => {
-        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
         // subscribe.remove('change', handleChange);
       };
-    }, [])
+    }, []),
   );
 
   const checkForNetwork = async () => {
-    await SharedService.networkChanged.subscribe((changed) => {
+    await SharedService.networkChanged.subscribe(changed => {
       if (changed.isInternetReachable == null) {
         return;
       }
@@ -133,9 +133,9 @@ const Dashboard = (props) => {
   useEffect(() => {
     if (
       store &&
-      store.demo_survey_taken == "NO" &&
+      store.demo_survey_taken == 'NO' &&
       isCompleteDemoSurvey &&
-      renderCount.toString() == "0"
+      renderCount.toString() == '0'
     ) {
       setModal(true);
     }
@@ -143,32 +143,32 @@ const Dashboard = (props) => {
 
   const onBackPress = () => {
     Alert.alert(
-      "",
+      '',
       I18n.t(globalText.appExitMessage),
       [
-        { text: I18n.t(globalText.yes), onPress: () => BackHandler.exitApp() },
-        { text: I18n.t(globalText.no) },
+        {text: I18n.t(globalText.yes), onPress: () => BackHandler.exitApp()},
+        {text: I18n.t(globalText.no)},
       ],
-      { cancelable: true }
+      {cancelable: true},
     );
     return true;
   };
 
   const onCall = (item, item1, index) => {
-    props.navigation.navigate("Basic_Profile", {
+    props.navigation.navigate('Basic_Profile', {
       data: item,
       id: item1.sub_category_type_id,
     });
   };
 
   const onClickLink = async () => {
-    const checkData = await JSON.parse(await getAsyncStorage("INVITE_URL"));
+    const checkData = await JSON.parse(await getAsyncStorage('INVITE_URL'));
     setLinkData(checkData && checkData);
-    const getBasicInfo = await JSON.parse(await getAsyncStorage("Login_Data"));
+    const getBasicInfo = await JSON.parse(await getAsyncStorage('Login_Data'));
     setBasicInfo(getBasicInfo);
     if (
       checkData &&
-      checkData.profileSurvey == "true" &&
+      checkData.profileSurvey == 'true' &&
       getBasicInfo.userid == checkData.reference_Id
     ) {
       setLoader(true);
@@ -180,8 +180,8 @@ const Dashboard = (props) => {
         source_Id: checkData.source_Id,
         vendor_Id: checkData.vendor_Id,
       };
-      await setAsyncStorage("INVITE_URL", JSON.stringify(isData));
-      let value = await JSON.parse(await getAsyncStorage("INVITE_URL"));
+      await setAsyncStorage('INVITE_URL', JSON.stringify(isData));
+      let value = await JSON.parse(await getAsyncStorage('INVITE_URL'));
       setLinkData(value);
       setLoader(false);
     } else {
@@ -197,11 +197,11 @@ const Dashboard = (props) => {
 
     // alert(JSON.stringify(userInfo));
     // setLoader(loader ? true : false);
-    const appLanguage = await getAsyncStorage("appLanguage");
+    const appLanguage = await getAsyncStorage('appLanguage');
     if (appLanguage) {
       I18n.locale = appLanguage;
     }
-    const getBasicInfo = await JSON.parse(await getAsyncStorage("Login_Data"));
+    const getBasicInfo = await JSON.parse(await getAsyncStorage('Login_Data'));
     setBasicInfo(getBasicInfo);
     // const isProfileMenuData = await JSON.parse(await getAsyncStorage('myProfileData'));
     // if (isProfileMenuData) {
@@ -211,9 +211,9 @@ const Dashboard = (props) => {
     // }
     if (
       store &&
-      store.demo_survey_taken == "NO" &&
-      renderCount.toString() == "0" &&
-      getBasicInfo.demo_survey_taken == "N"
+      store.demo_survey_taken == 'NO' &&
+      renderCount.toString() == '0' &&
+      getBasicInfo.demo_survey_taken == 'N'
     ) {
       // setLoader(true);
       setLoader(false);
@@ -226,14 +226,14 @@ const Dashboard = (props) => {
     setCurrencyValue(
       getBasicInfo &&
         getBasicInfo.currency_symbol &&
-        getBasicInfo.currency_symbol
+        getBasicInfo.currency_symbol,
     );
     setLoader(false);
   };
 
   const getcategorysubcategory = async () => {
-    const { data, message } = await AuthApi.getDataFromServer(
-      Api.myProfileGetCategorySubcategory
+    const {data, message} = await AuthApi.getDataFromServer(
+      Api.myProfileGetCategorySubcategory,
     );
     if (!data) {
       if (message) {
@@ -245,7 +245,7 @@ const Dashboard = (props) => {
     if (isData) {
       let count = 0;
       isData.map((item, index) => {
-        if (item.category_id == "1") {
+        if (item.category_id == '1') {
           item.items.map((i, j) => {
             if (i.name == I18n.t(globalText._basicProfileNew)) {
               count = count + 1;
@@ -266,17 +266,17 @@ const Dashboard = (props) => {
       }
       let profileFirstValue = isData[0];
       await setAsyncStorage(
-        "profileFirstValue",
-        JSON.stringify(profileFirstValue)
+        'profileFirstValue',
+        JSON.stringify(profileFirstValue),
       );
-      await setAsyncStorage("myProfileData", JSON.stringify([...isData]));
+      await setAsyncStorage('myProfileData', JSON.stringify([...isData]));
       setCategotyData([...isData]);
     }
   };
 
   const getDashboardDetail = async () => {
     const endPoint = `${Api.getDashboardDetail}`;
-    const { data, message } = await AuthApi.getDataFromServer(endPoint);
+    const {data, message} = await AuthApi.getDataFromServer(endPoint);
     if (!data) {
       toastShow(I18n.t(globalText.somethingWentWrong));
       return;
@@ -285,34 +285,34 @@ const Dashboard = (props) => {
       let isData = await data.data;
       setDashboardData(isData);
       await setAsyncStorage(
-        "notification_count",
-        JSON.stringify(isData.notification_count)
+        'notification_count',
+        JSON.stringify(isData.notification_count),
       );
-      if (typeof isData["latest surveys"] != "string") {
+      if (typeof isData['latest surveys'] != 'string') {
         let isDataNEw =
-          isData["latest surveys"] &&
-          isData["latest surveys"].length > 0 &&
-          isData["latest surveys"].filter((i, j) => j < 2);
+          isData['latest surveys'] &&
+          isData['latest surveys'].length > 0 &&
+          isData['latest surveys'].filter((i, j) => j < 2);
         setLiveSurveyData(isDataNEw ? isDataNEw : []);
       }
-      let getBasicInfo = await JSON.parse(await getAsyncStorage("Login_Data"));
+      let getBasicInfo = await JSON.parse(await getAsyncStorage('Login_Data'));
       if (
         isData &&
         isData.demo_survey_taken &&
-        isData.demo_survey_taken == "N"
+        isData.demo_survey_taken == 'N'
       ) {
-        getBasicInfo.demo_survey_taken = "N";
-        await setAsyncStorage("Login_Data", JSON.stringify(getBasicInfo));
+        getBasicInfo.demo_survey_taken = 'N';
+        await setAsyncStorage('Login_Data', JSON.stringify(getBasicInfo));
         setBasicInfo(getBasicInfo);
       } else {
-        getBasicInfo.demo_survey_taken = "Y";
-        await setAsyncStorage("Login_Data", JSON.stringify(getBasicInfo));
+        getBasicInfo.demo_survey_taken = 'Y';
+        await setAsyncStorage('Login_Data', JSON.stringify(getBasicInfo));
         setBasicInfo(getBasicInfo);
       }
     }
   };
 
-  const _renderItem = ({ item, index }) => {
+  const _renderItem = ({item, index}) => {
     if (index < 5) {
       return (
         <View style={styles.row}>
@@ -329,7 +329,7 @@ const Dashboard = (props) => {
                 <MaterialCommunityIcons
                   name="clock-time-three-outline"
                   size={15}
-                  color={"grey"}
+                  color={'grey'}
                 />
               </View>
               <Text style={styles.dashboardLiveSurveyContent}>
@@ -339,7 +339,7 @@ const Dashboard = (props) => {
 
             <View style={styles.dashboardLiveSurveyContentView}>
               <View style={styles.marR5}>
-                <Feather name="star" size={15} color={"grey"} />
+                <Feather name="star" size={15} color={'grey'} />
               </View>
               <Text style={styles.dashboardLiveSurveyContent}>
                 {currencyValue} {item.cpi}
@@ -352,8 +352,9 @@ const Dashboard = (props) => {
                   styles.cSurvGreenTextView,
                   styles.dashboardLiveSurveyButton,
                 ]}
-                onPress={async () => await Linking.openURL(item.takeSurveyLink)}
-              >
+                onPress={async () =>
+                  await Linking.openURL(item.takeSurveyLink)
+                }>
                 <Text style={styles.cSurvGreenTextStyle}>
                   {I18n.t(globalText._takeTheSurvey)}
                 </Text>
@@ -364,14 +365,13 @@ const Dashboard = (props) => {
             <View
               style={{
                 width: screenWidth / 2 - 20,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
               <Ionicons
                 name="arrow-forward-circle"
                 size={40}
-                onPress={() => props.navigation.navigate("LiveSurvey")}
+                onPress={() => props.navigation.navigate('LiveSurvey')}
               />
             </View>
           )}
@@ -385,11 +385,10 @@ const Dashboard = (props) => {
       <SafeAreaView style={[styles.container, styles.alignItemCenter]}>
         <View
           style={{
-            alignItems: "center",
+            alignItems: 'center',
             width: screenWidth,
-          }}
-        >
-          <Pagination
+          }}>
+          {/* <Pagination
             activeDotIndex={activeSlide}
             dotsLength={dotLen}
             dotStyle={styles.dashDotStyle}
@@ -400,22 +399,22 @@ const Dashboard = (props) => {
             inactiveDotOpacity={0.8}
             containerStyle={styles.dashDotContainerStyle}
             carouselRef={_carousel}
-          />
+          /> */}
         </View>
       </SafeAreaView>
     );
   };
 
   const checkEmailVerified = async () => {
-    if (basicInfo && (!basicInfo.username || basicInfo.username == "")) {
+    if (basicInfo && (!basicInfo.username || basicInfo.username == '')) {
       setEditDetails(true);
       return;
     }
-    props.navigation.navigate("RedemptionRequestForm");
+    props.navigation.navigate('RedemptionRequestForm');
   };
 
   const getLoginData = async () => {
-    const getBasicInfo = await JSON.parse(await getAsyncStorage("Login_Data"));
+    const getBasicInfo = await JSON.parse(await getAsyncStorage('Login_Data'));
     setBasicInfo(getBasicInfo);
   };
 
@@ -432,27 +431,27 @@ const Dashboard = (props) => {
           onPressCross={async () => {
             // await setAsyncStorage('demoCount', JSON.stringify('1'));
             let payload = {
-              demo_survey_taken: "YES",
+              demo_survey_taken: 'YES',
             };
-            dispatch(SET_DEMO_SURVEY_STATUS({ ...payload }));
+            dispatch(SET_DEMO_SURVEY_STATUS({...payload}));
             setCompleteDemoSurvey(false);
             setModal(false);
             renderCount++;
             await onPageInit();
           }}
-          onPressClose={async (value) => {
+          onPressClose={async value => {
             // await setAsyncStorage('demoCount', JSON.stringify('1'));
             let payload = {
-              demo_survey_taken: "YES",
+              demo_survey_taken: 'YES',
             };
-            dispatch(SET_DEMO_SURVEY_STATUS({ ...payload }));
+            dispatch(SET_DEMO_SURVEY_STATUS({...payload}));
             setCompleteDemoSurvey(false);
             setModal(false);
             renderCount++;
             if (value && value.length > 0) {
               isEmailPhoneVerify.status = true;
               isEmailPhoneVerify.value = value;
-              setEmailPhoneVerify({ ...isEmailPhoneVerify });
+              setEmailPhoneVerify({...isEmailPhoneVerify});
             } else {
               await onPageInit();
             }
@@ -460,9 +459,9 @@ const Dashboard = (props) => {
           onRequestClose={async () => {
             // await setAsyncStorage('demoCount', JSON.stringify('1'));
             let payload = {
-              demo_survey_taken: "YES",
+              demo_survey_taken: 'YES',
             };
-            dispatch(SET_DEMO_SURVEY_STATUS({ ...payload }));
+            dispatch(SET_DEMO_SURVEY_STATUS({...payload}));
             setCompleteDemoSurvey(false);
             setModal(false);
             renderCount++;
@@ -473,7 +472,7 @@ const Dashboard = (props) => {
 
       {isEditDetails && (
         <UpdateEmailMobile
-          isName={"email"}
+          isName={'email'}
           onRequestClose={() => setEditDetails(false)}
           onPressCross={() => setEditDetails(false)}
           isFirstName={basicInfo && basicInfo.first_name}
@@ -659,20 +658,20 @@ const Dashboard = (props) => {
                 <View style={styles.pad15}>
                   <View>
                     <Text style={styles.dashboardStatisticText}>
-                      {I18n.t(globalText._Hi)}{" "}
+                      {I18n.t(globalText._Hi)}{' '}
                       {`${
                         basicInfo && basicInfo.first_name
                           ? basicInfo.first_name
-                          : ""
+                          : ''
                       } ${
                         basicInfo && basicInfo.last_name
                           ? basicInfo.last_name
-                          : ""
-                      }!`}{" "}
+                          : ''
+                      }!`}{' '}
                       {I18n.t(globalText._dashbaordTextThisIsYourStatistics, {
                         _year: basicInfo?.membersinceyear
                           ? basicInfo?.membersinceyear
-                          : "",
+                          : '',
                       })}
                     </Text>
                   </View>
@@ -681,56 +680,54 @@ const Dashboard = (props) => {
                     <View style={styles.dashBoardWhiteBack}>
                       <CustomDashBoradSurvey
                         surveyQualifed={
-                          isDashboardData && isDashboardData["survey qualified"]
-                            ? Number(isDashboardData["survey qualified"])
+                          isDashboardData && isDashboardData['survey qualified']
+                            ? Number(isDashboardData['survey qualified'])
                             : 0
                         }
                         rewardsEarn={
-                          isDashboardData && isDashboardData["reward earned"]
-                            ? isDashboardData["reward earned"]
+                          isDashboardData && isDashboardData['reward earned']
+                            ? isDashboardData['reward earned']
                                 .toString()
-                                .indexOf(".") == -1
+                                .indexOf('.') == -1
                               ? currencyValue +
-                                " " +
+                                ' ' +
                                 Number(
-                                  isDashboardData["reward earned"]
+                                  isDashboardData['reward earned'],
                                 ).toFixed(2)
                               : currencyValue +
-                                " " +
+                                ' ' +
                                 Number(
-                                  isDashboardData["reward earned"]
+                                  isDashboardData['reward earned'],
                                 ).toFixed(2)
-                            : currencyValue + " " + "0.00"
+                            : currencyValue + ' ' + '0.00'
                         }
                         pointEarned={
-                          isDashboardData && isDashboardData["point earned"]
-                            ? Number(isDashboardData["point earned"])
+                          isDashboardData && isDashboardData['point earned']
+                            ? Number(isDashboardData['point earned'])
                             : 0
                         }
                         pointRedeemed={
-                          isDashboardData && isDashboardData["point redeemed"]
-                            ? Number(isDashboardData["point redeemed"])
+                          isDashboardData && isDashboardData['point redeemed']
+                            ? Number(isDashboardData['point redeemed'])
                               ? currencyValue +
-                                " " +
+                                ' ' +
                                 Number(
-                                  isDashboardData["point redeemed"]
+                                  isDashboardData['point redeemed'],
                                 ).toFixed(2)
-                              : currencyValue + " " + "0.00"
-                            : currencyValue + " " + "0.00"
+                              : currencyValue + ' ' + '0.00'
+                            : currencyValue + ' ' + '0.00'
                         }
                       />
                     </View>
                   </View>
                   <>
                     <View
-                      style={[styles.dashboardPointStatusView, styles.marT25]}
-                    >
+                      style={[styles.dashboardPointStatusView, styles.marT25]}>
                       <View
                         style={[
                           styles.shadowBox,
                           styles.dashboardPointStatusBox,
-                        ]}
-                      >
+                        ]}>
                         <FastImage
                           source={globalImages.reedemableDashboardIcon}
                           style={styles.dashboardPointStatusIcon}
@@ -746,24 +743,23 @@ const Dashboard = (props) => {
                         </View>
                         <View style={styles.marB13}>
                           <Text style={styles.cSurvPointStyle}>
-                            {currencyValue + " "}
-                            {isDashboardData["Redeemable Balance today"]
-                              ? isDashboardData["Redeemable Balance today"]
+                            {currencyValue + ' '}
+                            {isDashboardData['Redeemable Balance today']
+                              ? isDashboardData['Redeemable Balance today']
                                   .toString()
-                                  .indexOf(".") == -1
+                                  .indexOf('.') == -1
                                 ? isDashboardData[
-                                    "Redeemable Balance today"
+                                    'Redeemable Balance today'
                                   ].toFixed(2)
                                 : isDashboardData[
-                                    "Redeemable Balance today"
+                                    'Redeemable Balance today'
                                   ].toFixed(2)
-                              : "0.00"}
+                              : '0.00'}
                           </Text>
                         </View>
                         <TouchableOpacity
                           style={[styles.cSurvGreenTextView, styles.marB5]}
-                          onPress={() => checkEmailVerified()}
-                        >
+                          onPress={() => checkEmailVerified()}>
                           <Text style={styles.cSurvGreenTextStyle}>
                             {I18n.t(globalText._Redeem)}
                           </Text>
@@ -774,8 +770,7 @@ const Dashboard = (props) => {
                         style={[
                           styles.shadowBox,
                           styles.dashboardPointStatusBox,
-                        ]}
-                      >
+                        ]}>
                         <FastImage
                           source={globalImages.rewardDashboardIcon}
                           style={styles.dashboardPointStatusIcon}
@@ -791,24 +786,20 @@ const Dashboard = (props) => {
                         </View>
                         <View style={styles.marB13}>
                           <Text style={styles.cSurvPointStyle}>
-                            {isDashboardData["Reward Point balance"]
-                              ? isDashboardData["Reward Point balance"]
+                            {isDashboardData['Reward Point balance']
+                              ? isDashboardData['Reward Point balance']
                                   .toString()
-                                  .indexOf(".") == -1
-                                ? isDashboardData["Reward Point balance"]
-                                : ""
+                                  .indexOf('.') == -1
+                                ? isDashboardData['Reward Point balance']
+                                : ''
                               : 0}
                           </Text>
                         </View>
                         <TouchableOpacity
-                          style={[
-                            styles.cSurvGreenTextView,
-                            { marginBottom: 5 },
-                          ]}
+                          style={[styles.cSurvGreenTextView, {marginBottom: 5}]}
                           onPress={() =>
-                            props.navigation.navigate("PointConversion")
-                          }
-                        >
+                            props.navigation.navigate('PointConversion')
+                          }>
                           <Text style={styles.cSurvGreenTextStyle}>
                             {I18n.t(globalText._convert)}
                           </Text>
@@ -820,13 +811,12 @@ const Dashboard = (props) => {
                     <View>
                       <Text
                         numberOfLines={1}
-                        style={styles.dashBoardLiveSurveyMsgNEw}
-                      >
+                        style={styles.dashBoardLiveSurveyMsgNEw}>
                         {I18n.t(globalText.liveSurvey)}
                       </Text>
-                      <Carousel
+                      {/* <Carousel
                         // loopClonesPerSide={2}
-                        layout={"default"}
+                        layout={'default'}
                         ref={_carousel}
                         data={isLiveSurveyData}
                         renderItem={_renderItem}
@@ -834,26 +824,25 @@ const Dashboard = (props) => {
                         itemWidth={(screenWidth - 20) / 2}
                         useScrollView={true}
                         // loop={true}
-                        onSnapToItem={(index) => setActiveSlide(index)}
+                        onSnapToItem={index => setActiveSlide(index)}
                         enableSnap
                         // pagingEnabled
-                        activeSlideAlignment={"start"}
+                        activeSlideAlignment={'start'}
                         inactiveSlideOpacity={1}
                         inactiveSlideScale={1}
-                      />
+                      /> */}
                       {pagination(isLiveSurveyData && isLiveSurveyData.length)}
                     </View>
                   )}
                   <View style={styles.marginTop35}>
                     <TouchableOpacity
                       onPress={() =>
-                        props.navigation.navigate("LatestPoleTrend")
+                        props.navigation.navigate('LatestPoleTrend')
                       }
-                      style={styles.dashboardLatestPollButton}
-                    >
+                      style={styles.dashboardLatestPollButton}>
                       <View style={styles.dashboardLatestPollButtonView}>
                         <Text>
-                          {I18n.t(globalText._goToThe)}{" "}
+                          {I18n.t(globalText._goToThe)}{' '}
                           <Text style={styles.latesPollsTextStyle}>
                             {I18n.t(globalText._latestPolls)}
                           </Text>
@@ -873,7 +862,7 @@ const Dashboard = (props) => {
                       {I18n.t(globalText._dashbaordComplition, {
                         _percentage: isDashboardData.percentage
                           ? isDashboardData.percentage
-                          : "0%",
+                          : '0%',
                       })}
                     </Text>
                   </View>
@@ -883,14 +872,14 @@ const Dashboard = (props) => {
                       <CustomButton
                         buttonName={
                           isDashboardData.percentage &&
-                          isDashboardData.percentage !== "100%"
+                          isDashboardData.percentage !== '100%'
                             ? I18n.t(globalText.completeYrProfile)
                             : I18n.t(globalText.editYourProfile)
                         }
                         addButtonStyle={styles.dashboardCompleteButtonText}
                         addButtonTextStyle={styles.font18}
                         onPress={() =>
-                          props.navigation.navigate("Basic_Profile", {
+                          props.navigation.navigate('Basic_Profile', {
                             data: categotyData[0],
                             id: 0,
                           })

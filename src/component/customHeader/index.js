@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -9,32 +9,32 @@ import {
   StatusBar,
   FlatList,
   Modal,
-} from "react-native";
-import styles from "../../helper/globalStyles";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Entypo from "react-native-vector-icons/Entypo";
-import { globalText } from "../../helper/globalText";
-import colors from "../../styles/colors";
-import I18n from "../../i18n/index";
+} from 'react-native';
+import styles from '../../helper/globalStyles';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import {globalText} from '../../helper/globalText';
+import colors from '../../styles/colors';
+import I18n from '../../i18n/index';
 import {
   Menu,
   MenuOption,
   MenuOptions,
   MenuProvider,
   MenuTrigger,
-} from "react-native-popup-menu";
-import globalImages from "../../helper/globalImages";
-import FastImage from "react-native-fast-image";
-import CustomCheckBox from "../customCheckBox";
-import AuthApi from "../../utils/authApi";
-import Api from "../../utils/api";
-import CustomLoader from "../customLoader/index";
-import GlobalImages from "../../helper/globalImages";
+} from 'react-native-popup-menu';
+import globalImages from '../../helper/globalImages';
+import FastImage from '../FastImage';
+import CustomCheckBox from '../customCheckBox';
+import AuthApi from '../../utils/authApi';
+import Api from '../../utils/api';
+import CustomLoader from '../customLoader/index';
+import GlobalImages from '../../helper/globalImages';
 
-import CustomButton from "../customButton/index";
-import CustomRadioButton from "../customRadio/index";
+import CustomButton from '../customButton/index';
+import CustomRadioButton from '../customRadio/index';
 
-const CustomHeader = (props) => {
+const CustomHeader = props => {
   const {
     headerName,
     threeDotNeed,
@@ -64,13 +64,13 @@ const CustomHeader = (props) => {
 
   const [isNo, setNo] = useState(false);
 
-  const setCategoryConsent = async (index) => {
+  const setCategoryConsent = async index => {
     // alert(JSON.stringify(categotyData[index]));
 
     // alert(JSON.stringify(categoryData[index]  ))
     const payload = {
-      category_id: categoryData[index]["category_id"],
-      categoryConsent: categoryData[index]["categoryConsent"],
+      category_id: categoryData[index]['category_id'],
+      categoryConsent: categoryData[index]['categoryConsent'],
     };
 
     setLoader(true);
@@ -96,10 +96,10 @@ const CustomHeader = (props) => {
 
     if (
       (categoryData[activeCategoryIndex] &&
-        categoryData[activeCategoryIndex]["categoryConsent"] == 0) ||
+        categoryData[activeCategoryIndex]['categoryConsent'] == 0) ||
       categoryData[activeCategoryIndex]?.categoryConsent == 1
     ) {
-      categoryData[activeCategoryIndex]["categoryConsent"] =
+      categoryData[activeCategoryIndex]['categoryConsent'] =
         categoryData[activeCategoryIndex]?.categoryConsent == 1 ? 0 : 1;
     }
 
@@ -110,8 +110,8 @@ const CustomHeader = (props) => {
   };
 
   const getcategorysubcategory = async () => {
-    const { data, message } = await AuthApi.getDataFromServer(
-      Api.myProfileGetCategorySubcategory
+    const {data, message} = await AuthApi.getDataFromServer(
+      Api.myProfileGetCategorySubcategory,
     );
     if (!data) {
       if (message) {
@@ -123,7 +123,7 @@ const CustomHeader = (props) => {
     if (isData) {
       let count = 0;
       isData.map((item, index) => {
-        if (item.category_id == "1") {
+        if (item.category_id == '1') {
           item.items.map((i, j) => {
             if (i.name == I18n.t(globalText._basicProfileNew)) {
               count = count + 1;
@@ -144,7 +144,7 @@ const CustomHeader = (props) => {
       }
 
       setcategotyData(isData);
-      await setAsyncStorage("myProfileData", JSON.stringify([...isData]));
+      await setAsyncStorage('myProfileData', JSON.stringify([...isData]));
     }
   };
 
@@ -153,12 +153,12 @@ const CustomHeader = (props) => {
     setWithDraw(false);
   };
 
-  const renderItem = ({ item, index }) => (
+  const renderItem = ({item, index}) => (
     <View key={index} style={styles.marT10}>
       <View style={styles.menuStatusView}>
         <View style={styles.width20AligItCenter}>
           <FastImage
-            resizeMode={"contain"}
+            resizeMode={'contain'}
             style={styles.dashboadrMenuIcon}
             source={
               item.category_type_mobile_image
@@ -173,10 +173,9 @@ const CustomHeader = (props) => {
         <View
           style={[
             styles.width80,
-            { flexDirection: "row", alignItems: "center" },
-          ]}
-        >
-          {categoryData[index]["isCheckbox"] == "true" && (
+            {flexDirection: 'row', alignItems: 'center'},
+          ]}>
+          {categoryData[index]['isCheckbox'] == 'true' && (
             <>
               <CustomCheckBox
                 checkValue={item.categoryConsent == 1 ? true : false}
@@ -198,11 +197,11 @@ const CustomHeader = (props) => {
                     }
                   }, 100);
                 }}
-                style={{ margin: 1 }}
+                style={{margin: 1}}
               />
             </>
           )}
-          <Text style={[styles.pinkColorStyle, { marginLeft: 3 }]}>
+          <Text style={[styles.pinkColorStyle, {marginLeft: 3}]}>
             {item.category_name}
           </Text>
         </View>
@@ -216,7 +215,7 @@ const CustomHeader = (props) => {
         item.items &&
         item.items.length > 0 &&
         item.items.map((item1, index1) =>
-          !categoryData[index]["categoryConsent"] ? (
+          !categoryData[index]['categoryConsent'] ? (
             <View key={index1} style={styles.menuStatusView}>
               <View style={styles.width20} />
               <View
@@ -225,15 +224,13 @@ const CustomHeader = (props) => {
                   item.items.length - 1 == index1
                     ? styles.width80
                     : styles.width80WithBorder,
-                ]}
-              >
+                ]}>
                 {item1.sub_category_type && (
                   <MenuOption
                     style={{}}
                     onSelect={() => {
                       onCall(item, item1, index);
-                    }}
-                  >
+                    }}>
                     <Text style={styles.menuBlueColor}>
                       {item1.sub_category_type && item1.sub_category_type}
                     </Text>
@@ -251,15 +248,13 @@ const CustomHeader = (props) => {
                     item.items.length - 1 == index1
                       ? styles.width80
                       : styles.width80WithBorder,
-                  ]}
-                >
+                  ]}>
                   {item1.sub_category_type && (
                     <MenuOption
                       style={{}}
                       onSelect={() => {
                         onCall(item, item1, index);
-                      }}
-                    >
+                      }}>
                       <Text style={styles.menuBlueColor}>
                         {item1.sub_category_type && item1.sub_category_type}
                       </Text>
@@ -268,7 +263,7 @@ const CustomHeader = (props) => {
                 </View>
               </View>
             )
-          )
+          ),
         )}
       {item.category_id != 2 &&
         item.items &&
@@ -278,16 +273,15 @@ const CustomHeader = (props) => {
             key={index1}
             style={[
               styles.menuStatusView,
-              item.hasOwnProperty("isCheckbox") && item?.categoryConsent == 0
-                ? { opacity: 0.5 }
-                : { opacity: 1 },
+              item.hasOwnProperty('isCheckbox') && item?.categoryConsent == 0
+                ? {opacity: 0.5}
+                : {opacity: 1},
             ]}
             pointerEvents={
-              item.hasOwnProperty("isCheckbox") && item?.categoryConsent == 0
-                ? "none"
-                : "auto"
-            }
-          >
+              item.hasOwnProperty('isCheckbox') && item?.categoryConsent == 0
+                ? 'none'
+                : 'auto'
+            }>
             <View style={styles.width20} />
             <View
               style={[
@@ -295,15 +289,13 @@ const CustomHeader = (props) => {
                 item.items.length - 1 == index1
                   ? styles.width80
                   : styles.width80WithBorder,
-              ]}
-            >
+              ]}>
               {item1.sub_category_type && (
                 <MenuOption
                   style={{}}
                   onSelect={() => {
                     onCall(item, item1, index);
-                  }}
-                >
+                  }}>
                   <Text style={styles.menuBlueColor}>
                     {item1.sub_category_type && item1.sub_category_type}
                   </Text>
@@ -327,30 +319,27 @@ const CustomHeader = (props) => {
             transparent={true}
             swipeDirection="down"
             onRequestClose={onRequestClose}
-            backgroundColor="red"
-          >
+            backgroundColor="red">
             <View
               style={{
                 flex: 1,
-                justifyContent: "center",
-                backgroundColor: "rgba(0,0,0,0.5)",
-                alignItems: "center",
-              }}
-            >
+                justifyContent: 'center',
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                alignItems: 'center',
+              }}>
               <View
                 style={{
-                  height: "auto",
+                  height: 'auto',
                   width: 350,
                   opacity: 1,
-                  backgroundColor: "#FFF",
+                  backgroundColor: '#FFF',
                   borderRadius: 10,
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  position: "relative",
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  position: 'relative',
                   paddingBottom: 20,
                   paddingHorizontal: 15,
-                }}
-              >
+                }}>
                 <TouchableOpacity
                   onPress={() => {
                     setCategoryEnable(false);
@@ -359,12 +348,11 @@ const CustomHeader = (props) => {
                     setNo(false);
                   }}
                   style={{
-                    position: "absolute",
+                    position: 'absolute',
                     top: 10,
                     right: 10,
                     zIndex: 1,
-                  }}
-                >
+                  }}>
                   <FastImage
                     style={{
                       height: 16,
@@ -377,14 +365,13 @@ const CustomHeader = (props) => {
                 <Text
                   style={{
                     fontSize: 18,
-                    fontWeight: "bold",
+                    fontWeight: 'bold',
                     marginTop: 35,
                     marginBottom: 10,
-                  }}
-                >
+                  }}>
                   {I18n.t(globalText.Note)}
                 </Text>
-                <Text style={{ color: "black", marginBottom: 10, padding: 4 }}>
+                <Text style={{color: 'black', marginBottom: 10, padding: 4}}>
                   {isWithDraw
                     ? I18n.t(globalText.are_you_sure)
                     : categoryData[activeCategoryIndex]?.categoryContent}
@@ -393,17 +380,14 @@ const CustomHeader = (props) => {
                 {isWithDraw && (
                   <View
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                       marginBottom: 15,
-                      width: "35%",
-                    }}
-                  >
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
+                      width: '35%',
+                    }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <CustomRadioButton
                         checkValue={isYes}
                         onPressRadio={() => {
@@ -411,14 +395,12 @@ const CustomHeader = (props) => {
                           setNo(false);
                         }}
                       />
-                      <Text style={{ marginLeft: 10 }}>
+                      <Text style={{marginLeft: 10}}>
                         {I18n.t(globalText.yes)}
                       </Text>
                     </View>
 
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <CustomRadioButton
                         checkValue={isNo}
                         onPressRadio={() => {
@@ -426,7 +408,7 @@ const CustomHeader = (props) => {
                           setNo(true);
                         }}
                       />
-                      <Text style={{ marginLeft: 10 }}>
+                      <Text style={{marginLeft: 10}}>
                         {I18n.t(globalText.no)}
                       </Text>
                     </View>
@@ -436,13 +418,12 @@ const CustomHeader = (props) => {
                 {isWithDraw && (
                   <View
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       marginBottom: 20,
-                    }}
-                  >
+                    }}>
                     <CustomButton
                       onPress={() => {
                         if (isYes) {
@@ -454,7 +435,7 @@ const CustomHeader = (props) => {
                       }}
                       addButtonStyle={[
                         styles.prAndSettSurveySaveStyle,
-                        { marginRight: 10 },
+                        {marginRight: 10},
                       ]}
                       addButtonTextStyle={styles.fontSize14}
                       buttonName={I18n.t(globalText.update)}
@@ -490,16 +471,15 @@ const CustomHeader = (props) => {
 
         <TouchableOpacity
           style={styles.width10AlignLeft}
-          onPress={onPressLeftIcon}
-        >
+          onPress={onPressLeftIcon}>
           {backIcon ? (
             <MaterialIcons
-              name={"keyboard-backspace"}
+              name={'keyboard-backspace'}
               size={20}
               color={colors.ABBEY}
             />
           ) : (
-            <MaterialIcons name={"menu"} size={25} color={colors.ABBEY} />
+            <MaterialIcons name={'menu'} size={25} color={colors.ABBEY} />
           )}
         </TouchableOpacity>
         <View
@@ -509,8 +489,7 @@ const CustomHeader = (props) => {
                 ? styles.width70
                 : styles.width80
               : styles.width90
-          }
-        >
+          }>
           <View style={[styles.rowCenter, styles.width100]}>
             <Text numberOfLines={1} style={styles.headerTextStyle}>
               {headerName}
@@ -527,8 +506,7 @@ const CustomHeader = (props) => {
         {threeDotNeed && needText ? (
           <TouchableOpacity
             style={styles.width20AlignRight}
-            onPress={onPressTheeDot}
-          >
+            onPress={onPressTheeDot}>
             <Text style={styles.colorsOXFORD_BLUE}>
               {I18n.t(globalText._clearAll)}
             </Text>
@@ -538,8 +516,8 @@ const CustomHeader = (props) => {
             <Menu style={styles.dashMenustyle}>
               <MenuTrigger>
                 <Entypo
-                  style={{ marginRight: -5 }}
-                  name={"dots-three-vertical"}
+                  style={{marginRight: -5}}
+                  name={'dots-three-vertical'}
                   size={20}
                   color={colors.ABBEY}
                 />
@@ -549,10 +527,9 @@ const CustomHeader = (props) => {
                   styles.dashMenuContainerStyle,
                   {
                     marginTop:
-                      Platform.OS == "ios" ? 40 : StatusBar.currentHeight + 10,
+                      Platform.OS == 'ios' ? 40 : StatusBar.currentHeight + 10,
                   },
-                ]}
-              >
+                ]}>
                 <ScrollView>
                   <View style={styles.paddB20}>
                     <View style={[styles.menuStatusView, styles.marT10]}>
@@ -567,7 +544,7 @@ const CustomHeader = (props) => {
                     <FlatList
                       data={categoryData} // Array of data to render
                       renderItem={renderItem} // Function to render each item
-                      keyExtractor={(item) => item.id} // Function to extract unique keys from items
+                      keyExtractor={item => item.id} // Function to extract unique keys from items
                       extraData={currentTime}
                     />
                   </View>

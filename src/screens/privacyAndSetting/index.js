@@ -11,7 +11,7 @@ import {
   Alert,
   Modal,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import FastImage from '../../component/FastImage';
 import CustomRadioAndAns from '../../component/CustomRadioAndAns/index';
 import ChangePassword from '../../screens/changePassword';
 import CustomBackGround from '../../component/customBackground/index';

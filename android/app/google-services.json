@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "244782268392",
+    "firebase_url": "https://opinionbureau-1f805.firebaseio.com",
+    "project_id": "opinionbureau-1f805",
+    "storage_bucket": "opinionbureau-1f805.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244782268392:android:12b918b62032cb1246ae5d",
+        "android_client_info": {
+          "package_name": "com.opinionbureau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244782268392-cd7i80g7meceuvs8883t328sjp4amgbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.opinionbureau",
+            "certificate_hash": "9459ae8392f2b78c4664330ad706f38e47f89e09"
+          }
+        },
+        {
+          "client_id": "244782268392-imbsr7tiveb12s27jmkdvdtvtpq44r4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.opinionbureau",
+            "certificate_hash": "75cf8d29999e105826030b0f16e2751deabebb3d"
+          }
+        },
+        {
+          "client_id": "244782268392-c524qiu8sal8hpk8jtfqb0dap80pe6lb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfCh4wKiR-yIjYc5sCAXaj7D9GLONrl_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244782268392-c524qiu8sal8hpk8jtfqb0dap80pe6lb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "244782268392-0tgrnbmifh5prd55lmqn50ui8lm86urb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "opinionbureau.com",
+                "app_store_id": "123456789"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

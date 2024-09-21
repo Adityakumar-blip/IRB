@@ -1,16 +1,16 @@
-import { View, Text, Modal, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-import styles from "../../helper/globalStyles";
-import CustomCheckBox from "../../component/customCheckBox/index";
-import CustomButton from "../customButton/index";
-import CustomRadioButton from "../customRadio/index";
+import {View, Text, Modal, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import styles from '../../helper/globalStyles';
+import CustomCheckBox from '../../component/customCheckBox/index';
+import CustomButton from '../customButton/index';
+import CustomRadioButton from '../customRadio/index';
 // import I18n from "src/i18n";
-import I18n from "../../i18n/index";
-import { globalText } from "../../helper/globalText";
-import FastImage from "react-native-fast-image";
-import GlobalImages from "../../helper/globalImages";
+import I18n from '../../i18n/index';
+import {globalText} from '../../helper/globalText';
+import FastImage from '../FastImage';
+import GlobalImages from '../../helper/globalImages';
 
-const CustomDynamicForm = (props) => {
+const CustomDynamicForm = props => {
   const {
     question,
     inSideValue,
@@ -45,31 +45,28 @@ const CustomDynamicForm = (props) => {
           noNeedBorder
             ? styles.CustomDFBorderViewNew
             : styles.CustomDFBorderView
-        }
-      >
+        }>
         {questionContent && (
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
               marginLeft: -24,
               marginBottom: 5,
-            }}
-          >
-            <Text style={{ fontSize: 11, width: "80%" }} numberOfLines={1}>
+            }}>
+            <Text style={{fontSize: 11, width: '80%'}} numberOfLines={1}>
               {questionContent}
             </Text>
             <Text
               style={{
-                textDecorationLine: "underline",
+                textDecorationLine: 'underline',
                 padding: 2,
                 fontSize: 11,
               }}
               onPress={() => {
                 setConsent(true);
-              }}
-            >
+              }}>
               {I18n.t(globalText.more)}
             </Text>
           </View>
@@ -86,7 +83,7 @@ const CustomDynamicForm = (props) => {
                     props.setEmailConsent(emailConsent);
                   }
                 }}
-                style={{ margin: 10 }}
+                style={{margin: 10}}
               />
             )}
 
@@ -96,8 +93,8 @@ const CustomDynamicForm = (props) => {
                 onPressCheckBox={() => {
                   // alert(item1?.categoryConsent)
                   let data = {
-                    question_id: "",
-                    categoryConsent: "",
+                    question_id: '',
+                    categoryConsent: '',
                   };
                   if (emailConsent == 1) {
                     props.setWithDrawConsent();
@@ -105,12 +102,12 @@ const CustomDynamicForm = (props) => {
                     props.setEmailConsent();
                   }
                 }}
-                style={{ margin: 0 }}
+                style={{margin: 0}}
               />
             )}
           </View>
 
-          <View style={{ marginLeft: 5 }}>
+          <View style={{marginLeft: 5}}>
             <Text style={[styles.quesTextStyle, quesTextStyleExtra]}>
               {question}
               {imp && <Text style={styles.redTxt}> *</Text>}
@@ -127,39 +124,35 @@ const CustomDynamicForm = (props) => {
             transparent={true}
             swipeDirection="down"
             onRequestClose={onRequestClose}
-            backgroundColor="red"
-          >
+            backgroundColor="red">
             <View
               style={{
                 flex: 1,
-                justifyContent: "center",
-                backgroundColor: "rgba(0,0,0,0.5)",
-                alignItems: "center",
-              }}
-            >
+                justifyContent: 'center',
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                alignItems: 'center',
+              }}>
               <View
                 style={{
                   height: withDrawConsent ? 210 : 300,
                   width: 350,
                   opacity: 1,
-                  backgroundColor: "#FFF",
+                  backgroundColor: '#FFF',
                   borderRadius: 10,
-                  overflow: "hidden",
-                }}
-              >
+                  overflow: 'hidden',
+                }}>
                 <TouchableOpacity
                   onPress={() => {
                     setConsent(false);
                     setWithDraw(false);
                   }}
                   style={{
-                    position: "absolute",
+                    position: 'absolute',
                     top: 10,
                     right: 10,
                     zIndex: 1,
                     padding: 5,
-                  }}
-                >
+                  }}>
                   <FastImage
                     style={{
                       height: 16,
@@ -172,49 +165,43 @@ const CustomDynamicForm = (props) => {
                 <View
                   style={{
                     flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     paddingTop: 20,
                     paddingHorizontal: 15,
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
                       fontSize: 18,
-                      fontWeight: "bold",
+                      fontWeight: 'bold',
                       marginBottom: 10,
-                    }}
-                  >
+                    }}>
                     {I18n.t(globalText.Note)}
                   </Text>
                   {!withDrawConsent && (
                     <Text
-                      style={{ color: "black", marginBottom: 15, padding: 10 }}
-                    >
+                      style={{color: 'black', marginBottom: 15, padding: 10}}>
                       {questionContent}
                     </Text>
                   )}
                   {withDrawConsent && (
                     <>
                       <Text
-                        style={{ color: "black", marginBottom: 0, padding: 10 }}
-                      >
+                        style={{color: 'black', marginBottom: 0, padding: 10}}>
                         {I18n.t(globalText.are_you_sure)}
                       </Text>
 
                       <View
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "space-between",
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
                           marginBottom: 15,
-                          width: "35%",
-                        }}
-                      >
+                          width: '35%',
+                        }}>
                         <View
-                          style={{ flexDirection: "row", alignItems: "center" }}
-                        >
+                          style={{flexDirection: 'row', alignItems: 'center'}}>
                           <CustomRadioButton
                             checkValue={isYes}
                             onPressRadio={() => {
@@ -222,14 +209,13 @@ const CustomDynamicForm = (props) => {
                               setNo(false);
                             }}
                           />
-                          <Text style={{ marginLeft: 10 }}>
+                          <Text style={{marginLeft: 10}}>
                             {I18n.t(globalText.yes)}
                           </Text>
                         </View>
 
                         <View
-                          style={{ flexDirection: "row", alignItems: "center" }}
-                        >
+                          style={{flexDirection: 'row', alignItems: 'center'}}>
                           <CustomRadioButton
                             checkValue={isNo}
                             onPressRadio={() => {
@@ -237,7 +223,7 @@ const CustomDynamicForm = (props) => {
                               setNo(true);
                             }}
                           />
-                          <Text style={{ marginLeft: 10 }}>
+                          <Text style={{marginLeft: 10}}>
                             {I18n.t(globalText.no)}
                           </Text>
                         </View>
@@ -247,12 +233,11 @@ const CustomDynamicForm = (props) => {
                   {withDrawConsent && (
                     <View
                       style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
                       <CustomButton
                         onPress={() => {
                           if (isYes) {

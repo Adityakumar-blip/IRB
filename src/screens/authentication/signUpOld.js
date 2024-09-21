@@ -2,7 +2,7 @@
 // import React, { useEffect, useState } from 'react';
 // import { Alert, BackHandler, Linking, Text, TouchableOpacity, View, Platform, AppState } from 'react-native';
 // import CountryFlag from 'react-native-country-flag';
-// import FastImage from 'react-native-fast-image';
+// import FastImage from '../../component/FastImage';
 // import * as RNLocalize from 'react-native-localize';
 // // import CountryPicker, { FlagButton } from 'react-native-country-picker-modal';
 // import AntDesign from 'react-native-vector-icons/AntDesign';

@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
-import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useState, useRef, useEffect } from "react";
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useCallback, useState, useRef, useEffect} from 'react';
 import {
   Dimensions,
   Image,
@@ -14,38 +14,38 @@ import {
   Linking,
   Alert,
   Platform,
-} from "react-native";
+} from 'react-native';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FastImage from "react-native-fast-image";
-import { SwiperFlatList } from "react-native-swiper-flatlist";
-import CustomBackground from "../../component/customBackground/index";
-import CustomButton from "../../component/customButton/index";
-import CustomHeader from "../../component/customHeader/index";
-import globalImages from "../../helper/globalImages";
-import styles from "../../helper/globalStyles";
-import { globalText } from "../../helper/globalText";
-import colors from "../../styles/colors";
-import Api from "../../utils/api";
-import AuthApi from "../../utils/authApi";
-import LatestPollShareModalNew from "../latestPollShareModalNew/index";
-import LatestTrollShareModal from "../latestTrollShareModal/index";
-import CustomLoader from "../../component/customLoader/index";
+import FastImage from '../../component/FastImage';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
+import CustomBackground from '../../component/customBackground/index';
+import CustomButton from '../../component/customButton/index';
+import CustomHeader from '../../component/customHeader/index';
+import globalImages from '../../helper/globalImages';
+import styles from '../../helper/globalStyles';
+import {globalText} from '../../helper/globalText';
+import colors from '../../styles/colors';
+import Api from '../../utils/api';
+import AuthApi from '../../utils/authApi';
+import LatestPollShareModalNew from '../latestPollShareModalNew/index';
+import LatestTrollShareModal from '../latestTrollShareModal/index';
+import CustomLoader from '../../component/customLoader/index';
 import {
   getJsonStringify,
   toastShow,
   getAsyncStorage,
   setAsyncStorage,
-} from "../../utils/customFunctions";
-import I18n from "../../i18n/index";
-import { constant } from "../../utils/constants";
-import CriteriaQuestion from "./criteriaQuestion";
-import Share, { Social } from "react-native-share";
-import { ShareDialog } from "react-native-fbsdk";
-import { Singular } from "singular-react-native";
+} from '../../utils/customFunctions';
+import I18n from '../../i18n/index';
+import {constant} from '../../utils/constants';
+import CriteriaQuestion from './criteriaQuestion';
+import Share, {Social} from 'react-native-share';
+import {ShareDialog} from 'react-native-fbsdk';
+import {Singular} from 'singular-react-native';
 
-const { width, height } = Dimensions.get("window");
+const {width, height} = Dimensions.get('window');
 
-const LatestPoleTrend = (props) => {
+const LatestPoleTrend = props => {
   const [isModalFirst, setModalFirst] = useState(false);
   const [isModalSecond, setModalSecond] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -56,7 +56,7 @@ const LatestPoleTrend = (props) => {
     entireShare: false,
   });
   const [currentItem, setCurrentItem] = useState(
-    polls && polls.length > 0 && polls[0]
+    polls && polls.length > 0 && polls[0],
   );
   const [isIndex, setIndex] = useState(0);
   const [isCriteriaQuestion, setCriteriaQuestion] = useState(false);
@@ -84,7 +84,7 @@ const LatestPoleTrend = (props) => {
   // );
 
   useEffect(() => {
-    Singular.event("latestPoleTrend");
+    Singular.event('latestPoleTrend');
     onPageInit();
     return () => cleanUp();
   }, []);
@@ -94,10 +94,8 @@ const LatestPoleTrend = (props) => {
   };
 
   const onPageInit = async () => {
-
- 
     const isProfileMenuData = await JSON.parse(
-      await getAsyncStorage("myProfileData")
+      await getAsyncStorage('myProfileData'),
     );
     setCategotyData(isProfileMenuData);
     await getPollsQuestionAnswer();
@@ -112,7 +110,7 @@ const LatestPoleTrend = (props) => {
     const endPoint = `${Api.pollsQuestionAnswer}?skip=${
       isVoted ? 0 : paginationData.skip
     }&limit=${isVoted ? paginationData.skip : 10}`;
-    const { data, message } = await AuthApi.getDataFromServer(endPoint);
+    const {data, message} = await AuthApi.getDataFromServer(endPoint);
     setLoader(false);
     if (!data) {
       // toastShow(message);
@@ -137,7 +135,7 @@ const LatestPoleTrend = (props) => {
   };
 
   const onPressVote = async (value, item, index) => {
-    setSelectedPoll({ item: item, index: index });
+    setSelectedPoll({item: item, index: index});
     if (value) {
       if (
         item.poll_type == 1 &&
@@ -161,9 +159,9 @@ const LatestPoleTrend = (props) => {
         poll_answer_id: valueCheck.poll_answer_id,
         reward_type: item.poll_type == 0 ? 75 : 279,
       };
-      const { data, message } = await AuthApi.postDataToServer(
+      const {data, message} = await AuthApi.postDataToServer(
         Api.pollsSavePollAnswer,
-        payload
+        payload,
       );
       // setLoader(false);
       if (!data) {
@@ -187,7 +185,7 @@ const LatestPoleTrend = (props) => {
 
       // setLoader(false);
     } else {
-      Alert.alert("", I18n.t(globalText.pleaseSelectAnswer), [
+      Alert.alert('', I18n.t(globalText.pleaseSelectAnswer), [
         {
           //text: 'ok',
           text: I18n.t(globalText._ok),
@@ -201,10 +199,10 @@ const LatestPoleTrend = (props) => {
     return;
   };
 
-  const renderScreen = ({ item, index }) => {
+  const renderScreen = ({item, index}) => {
     return (
-      <View style={[{ width: width }]} key={index}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={[{width: width}]} key={index}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.paddB100}>
             <View>
               <View style={styles.borderPont5}>
@@ -213,7 +211,7 @@ const LatestPoleTrend = (props) => {
                     resizeMode="cover"
                     source={
                       item && item.image && item.image.length > 0
-                        ? { uri: item.image_name }
+                        ? {uri: item.image_name}
                         : globalImages.sampleIcon
                     }
                     style={styles.latestPoleImage}
@@ -241,16 +239,14 @@ const LatestPoleTrend = (props) => {
                     ]}
                     onPress={() => {
                       onSelect(index, j);
-                    }}
-                  >
+                    }}>
                     <Text
                       style={[
                         styles.latestPoleAnswer,
                         {
                           color: i.selected ? colors.RED_VOILET : colors.TOPAZ,
                         },
-                      ]}
-                    >
+                      ]}>
                       {i.poll_option_in_local_language}
                     </Text>
                   </TouchableOpacity>
@@ -291,10 +287,10 @@ const LatestPoleTrend = (props) => {
     let shareParameter = [];
     const shareValue =
       shareVia.singleShare && value.perma_link
-        ? constant["livePollShare"] + value.perma_link
+        ? constant['livePollShare'] + value.perma_link
         : shareVia.entireShare
-        ? constant["livePollShare"]
-        : constant["livePollShare"];
+        ? constant['livePollShare']
+        : constant['livePollShare'];
     //  shareVia.singleShare && value.perma_link
     //      ? constant['livePollShare'] + value.perma_link
     //      : shareVia.entireShare && isPollDetail.perma_link
@@ -302,39 +298,39 @@ const LatestPoleTrend = (props) => {
     //      : constant['livePollShare'];
     let newLink = shareValue;
     if (shareValue) {
-      type == "facebook"
-        ? shareParameter.push("u=" + encodeURI(shareValue))
-        : type == "twitter"
-        ? shareParameter.push("url=" + encodeURI(shareValue))
-        : type == "linkedIn"
-        ? shareParameter.push("url=" + encodeURI(shareValue))
+      type == 'facebook'
+        ? shareParameter.push('u=' + encodeURI(shareValue))
+        : type == 'twitter'
+        ? shareParameter.push('url=' + encodeURI(shareValue))
+        : type == 'linkedIn'
+        ? shareParameter.push('url=' + encodeURI(shareValue))
         : null;
     }
 
-    if (type == "linkedIn" && Platform.OS != "ios") {
+    if (type == 'linkedIn' && Platform.OS != 'ios') {
       Share.shareSingle({
         url: newLink,
         social: Share.Social.LINKEDIN,
       });
-    } else if (type == "facebook") {
+    } else if (type == 'facebook') {
       const shareLinkContent = {
-        contentType: "link",
+        contentType: 'link',
         contentUrl: newLink,
-        contentDescription: "",
+        contentDescription: '',
       };
       await shareLinkWithShareDialog(shareLinkContent);
     } else {
       const url =
-        type == "facebook"
-          ? `${constant["facebookShareLink"]}?u=${newLink}`
-          : type == "twitter"
-          ? constant["twetterShareLink"] + shareParameter.join("&")
-          : type == "linkedIn"
-          ? `${constant["linkedinShareLinkNew"]}&url=${newLink}`
+        type == 'facebook'
+          ? `${constant['facebookShareLink']}?u=${newLink}`
+          : type == 'twitter'
+          ? constant['twetterShareLink'] + shareParameter.join('&')
+          : type == 'linkedIn'
+          ? `${constant['linkedinShareLinkNew']}&url=${newLink}`
           : null;
 
       Linking.openURL(url)
-        .then((data) => {
+        .then(data => {
           // Alert.alert(`${type} Opened`);
         })
         .catch(() => {
@@ -343,7 +339,7 @@ const LatestPoleTrend = (props) => {
     }
   };
 
-  const shareLinkWithShareDialog = (shareLinkContent) => {
+  const shareLinkWithShareDialog = shareLinkContent => {
     ShareDialog.canShow(shareLinkContent)
       .then(function (canShow) {
         if (canShow) {
@@ -360,7 +356,7 @@ const LatestPoleTrend = (props) => {
         },
         function (error) {
           // toastShow('Share fail with error: ' + error);
-        }
+        },
       );
   };
 
@@ -388,7 +384,7 @@ const LatestPoleTrend = (props) => {
         (paginationData.skip = 0),
         (paginationData.totalCount = 0),
         (paginationData.totalPages = 0),
-        setPaginationData({ ...paginationData });
+        setPaginationData({...paginationData});
       setCriteriData([]);
       setCriteriaQuestion(false);
       await getPollsQuestionAnswer(0);
@@ -398,17 +394,17 @@ const LatestPoleTrend = (props) => {
     setForceUpdate(false);
   };
 
-  const getPollEligibleOrNot = async (id) => {
+  const getPollEligibleOrNot = async id => {
     let status = false;
     const endPoint = `${Api.pollsUserQualification}?poll_id=${id}`;
-    const { data, message } = await AuthApi.getDataFromServer(endPoint);
+    const {data, message} = await AuthApi.getDataFromServer(endPoint);
     if (!data) {
       setLoader(false);
       // toastShow(message);
       return;
     }
     let isData = data && data.data;
-    if ("User quailfied for poll" == isData) {
+    if ('User quailfied for poll' == isData) {
       status = true;
       return status;
     }
@@ -418,20 +414,20 @@ const LatestPoleTrend = (props) => {
 
   const getNotificationCount = async () => {
     const endPoint = `${Api.notificationCount}`;
-    const { data, message } = await AuthApi.getDataFromServer(endPoint);
+    const {data, message} = await AuthApi.getDataFromServer(endPoint);
     if (!data) {
       toastShow(message);
       return;
     }
     const notificationCountDetail = data && data.data && data.data.count;
     await setAsyncStorage(
-      "notification_count",
-      notificationCountDetail.toString()
+      'notification_count',
+      notificationCountDetail.toString(),
     );
   };
 
   const onCall = (item, item1, index) => {
-    props.navigation.navigate("Basic_Profile", {
+    props.navigation.navigate('Basic_Profile', {
       data: item,
       id: item1.sub_category_type_id,
     });
@@ -474,10 +470,10 @@ const LatestPoleTrend = (props) => {
                     initialScrollIndex={isIndex}
                     bounces={false}
                     onScroll={Animated.event(
-                      [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                      [{nativeEvent: {contentOffset: {x: scrollX}}}],
                       {
                         useNativeDriver: false,
-                      }
+                      },
                     )}
                     // getItemLayout={(data, index) => {
                     //     const width = Dimensions.get('window').width;
@@ -489,9 +485,9 @@ const LatestPoleTrend = (props) => {
                     keyExtractor={(item, index) => index}
                     onEndReached={() => fetch()}
                     onEndReachedThreshold={0.3}
-                    onScrollToIndexFailed={(info) => {
-                      const wait = new Promise((resolve) =>
-                        setTimeout(resolve, 100)
+                    onScrollToIndexFailed={info => {
+                      const wait = new Promise(resolve =>
+                        setTimeout(resolve, 100),
                       );
                       wait.then(() => {
                         _scrollRef.current?.scrollToIndex({
@@ -500,10 +496,10 @@ const LatestPoleTrend = (props) => {
                         });
                       });
                     }}
-                    onMomentumScrollEnd={(event) => {
+                    onMomentumScrollEnd={event => {
                       let currentIndex = Math.floor(
                         Math.floor(event.nativeEvent.contentOffset.x) /
-                          Math.floor(event.nativeEvent.layoutMeasurement.width)
+                          Math.floor(event.nativeEvent.layoutMeasurement.width),
                       );
                       setCurrentItem(polls[currentIndex]);
                       // work with: index
@@ -513,10 +509,9 @@ const LatestPoleTrend = (props) => {
                   <View
                     style={{
                       flex: 1,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
                     {/* {!loader && <Text>No Latest Polls Available</Text>} */}
                     <Text>{I18n.t(globalText.noRecordFound)}</Text>
                   </View>
@@ -529,11 +524,10 @@ const LatestPoleTrend = (props) => {
                   style={styles.latestPoleShareView}
                   onPress={() => {
                     setModalFirst(true);
-                  }}
-                >
+                  }}>
                   <FastImage
                     source={globalImages.sharePinkIcon}
-                    resizeMode={"contain"}
+                    resizeMode={'contain'}
                     style={styles.latestPoleShareIcon}
                   />
                 </TouchableOpacity>
@@ -547,14 +541,14 @@ const LatestPoleTrend = (props) => {
         <LatestPollShareModalNew
           onPressSharePoll={async () => {
             setModalFirst(false);
-            await setShareType({ singleShare: true });
+            await setShareType({singleShare: true});
             setModalSecond(true);
           }}
           onRequestClose={() => setModalFirst(false)}
           onPressCancel={() => setModalFirst(false)}
           onPressEntirePoll={async () => {
             setModalFirst(false);
-            await setShareType({ entireShare: true });
+            await setShareType({entireShare: true});
             setModalSecond(true);
           }}
         />
@@ -564,15 +558,15 @@ const LatestPoleTrend = (props) => {
         <LatestTrollShareModal
           onPressFacebook={() => {
             setModalSecond(false);
-            onPressShareVia("facebook", shareType);
+            onPressShareVia('facebook', shareType);
           }}
           onPressTwitter={() => {
             setModalSecond(false);
-            onPressShareVia("twitter", shareType);
+            onPressShareVia('twitter', shareType);
           }}
           onPressLinkedin={() => {
             setModalSecond(false);
-            onPressShareVia("linkedIn", shareType);
+            onPressShareVia('linkedIn', shareType);
           }}
           onRequestClose={() => setModalSecond(false)}
           onPressOutside={() => setModalSecond(false)}
