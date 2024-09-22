@@ -140,8 +140,6 @@ const SocailLogin = props => {
         offlineAccess: true,
         webClientId:
           '244782268392-c524qiu8sal8hpk8jtfqb0dap80pe6lb.apps.googleusercontent.com',
-        androidClientId:
-          '244782268392-imbsr7tiveb12s27jmkdvdtvtpq44r4m.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
       });
       await GoogleSignin.hasPlayServices();

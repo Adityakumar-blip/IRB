@@ -23,8 +23,10 @@ import {
 } from '../../utils/customFunctions';
 import {Singular, sngLog} from 'singular-react-native';
 import {Adjust} from 'react-native-adjust';
+import {useTranslation} from 'react-i18next';
 
 const Login = props => {
+  const {i18n} = useTranslation();
   const {onPress, onPressForgotPassword, isCountry} = props;
   const simpleValidator = useRef(new SimpleReactValidator());
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -139,7 +141,7 @@ const Login = props => {
         ? data.data.data.lang_code.toLowerCase()
         : 'en';
     await setAsyncStorage('appLanguage', languageValue.toString());
-    I18n.locale = languageValue;
+    i18n.changeLanguage(languageValue);
 
     Singular.event('login_submit_click');
     await onPress();
@@ -153,7 +155,12 @@ const Login = props => {
       ) : null}
       <View style={styles.flexRow}>
         <View style={styles.loginPhoneInputIconView}>
-          <Feather name="edit" size={25} />
+          <Feather
+            name="edit"
+            size={25}
+            style={styles.loginFieldIcon}
+            resizeMode={'contain'}
+          />
         </View>
         <View style={styles.loginPhoneInputView}>
           <TextInput
@@ -164,6 +171,9 @@ const Login = props => {
             onBlur={
               !allValid ? simpleValidator.current.showMessageFor('email') : null
             }
+            style={styles.inputStyle}
+            placeholderTextColor="#222"
+
             // onBlur={() =>
             //     CustomValidation.onBlurField(simpleValidator, allValid, I18n.t(globalText.phone_email))
             // }
@@ -198,6 +208,8 @@ const Login = props => {
                   ? simpleValidator.current.showMessageFor('password')
                   : null
               }
+              style={styles.inputStyle}
+              placeholderTextColor="#222"
               // onBlur={() =>
               //     CustomValidation.onBlurField(simpleValidator, allValid, I18n.t(globalText.password))
               // }

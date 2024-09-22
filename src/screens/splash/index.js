@@ -17,8 +17,10 @@ import {constant} from '../../utils/constants';
 import FastImage from '../../component/FastImage';
 import * as RNLocalize from 'react-native-localize';
 import I18n from '../../i18n/index';
+import {useTranslation} from 'react-i18next';
 
 const Splash = props => {
+  const {i18n} = useTranslation();
   useEffect(() => {
     onPageInit();
   }, []);
@@ -112,13 +114,13 @@ const Splash = props => {
     if (!data) {
       lang_code ? lang_code : null;
       if (lang_code) {
-        I18n.locale = lang_code;
+        I18n.changeLanguage(lang_code);
       }
       return response;
     }
     const appLanguage = await getAsyncStorage('appLanguage');
     if (appLanguage) {
-      I18n.locale = appLanguage;
+      i18n.changeLanguage(appLanguage);
     }
     response = true;
     return response;

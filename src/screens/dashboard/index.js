@@ -34,7 +34,7 @@ import CustomLoader from '../../component/customLoader/index';
 import globalImages from '../../helper/globalImages';
 import styles from '../../helper/globalStyles';
 import {globalText} from '../../helper/globalText';
-import I18n from '../../i18n/index';
+// import I18n from '../../i18n/index';
 import colors from '../../styles/colors';
 import Api from '../../utils/api';
 import AuthApi from '../../utils/authApi';
@@ -57,7 +57,7 @@ import DeviceInfo from 'react-native-device-info';
 import {useTranslation} from 'react-i18next';
 
 const Dashboard = props => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const dispatch = useDispatch();
   const store = useSelector(state => state.state.CHECK_DEMO_SURVEY);
   let renderCount = 0;
@@ -146,10 +146,10 @@ const Dashboard = props => {
   const onBackPress = () => {
     Alert.alert(
       '',
-      I18n.t(globalText.appExitMessage),
+      t(globalText.appExitMessage),
       [
-        {text: I18n.t(globalText.yes), onPress: () => BackHandler.exitApp()},
-        {text: I18n.t(globalText.no)},
+        {text: t(globalText.yes), onPress: () => BackHandler.exitApp()},
+        {text: t(globalText.no)},
       ],
       {cancelable: true},
     );
@@ -201,7 +201,7 @@ const Dashboard = props => {
     // setLoader(loader ? true : false);
     const appLanguage = await getAsyncStorage('appLanguage');
     if (appLanguage) {
-      I18n.locale = appLanguage;
+      i18n.changeLanguage(appLanguage);
     }
     const getBasicInfo = await JSON.parse(await getAsyncStorage('Login_Data'));
     setBasicInfo(getBasicInfo);
@@ -249,7 +249,7 @@ const Dashboard = props => {
       isData.map((item, index) => {
         if (item.category_id == '1') {
           item.items.map((i, j) => {
-            if (i.name == I18n.t(globalText._basicProfileNew)) {
+            if (i.name == t(globalText._basicProfileNew)) {
               count = count + 1;
             }
           });
@@ -259,8 +259,8 @@ const Dashboard = props => {
         isData.map((item, index) => {
           if (index == 0) {
             item.items.unshift({
-              name: I18n.t(globalText._basicProfileNew),
-              sub_category_type: I18n.t(globalText._basicProfileNew),
+              name: t(globalText._basicProfileNew),
+              sub_category_type: t(globalText._basicProfileNew),
               sub_category_type_id: 0,
             });
           }
@@ -280,7 +280,7 @@ const Dashboard = props => {
     const endPoint = `${Api.getDashboardDetail}`;
     const {data, message} = await AuthApi.getDataFromServer(endPoint);
     if (!data) {
-      toastShow(I18n.t(globalText.somethingWentWrong));
+      toastShow(t(globalText.somethingWentWrong));
       return;
     }
     if (data && data.data && Object.keys(data.data).length > 0) {
@@ -320,7 +320,7 @@ const Dashboard = props => {
         <View style={styles.row}>
           <View key={index} style={styles.dashboardLiveSurveyBox}>
             <Text style={styles.dashboardLiveSurveyBoxTitle}>
-              {/* {I18n.t(globalText._yourProfessionSurveys)} */}
+              {/* {t(globalText._yourProfessionSurveys)} */}
               {item?.surveyTitle}
             </Text>
 
@@ -335,7 +335,7 @@ const Dashboard = props => {
                 />
               </View>
               <Text style={styles.dashboardLiveSurveyContent}>
-                {item.loi}:00 {I18n.t(globalText._mins)}
+                {item.loi}:00 {t(globalText._mins)}
               </Text>
             </View>
 
@@ -358,7 +358,7 @@ const Dashboard = props => {
                   await Linking.openURL(item.takeSurveyLink)
                 }>
                 <Text style={styles.cSurvGreenTextStyle}>
-                  {I18n.t(globalText._takeTheSurvey)}
+                  {t(globalText._takeTheSurvey)}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -515,7 +515,7 @@ const Dashboard = props => {
             <View style={styles.height100}>
               {/* {loader && <CustomLoader isVisible={loader} />} */}
               <CustomHeader
-                headerName={I18n.t(globalText.dashboard)}
+                headerName={t(globalText.dashboard)}
                 onPressLeftIcon={() => props.navigation.openDrawer()}
                 threeDotNeed
                 categotyData={categotyData && categotyData}
@@ -535,7 +535,7 @@ const Dashboard = props => {
                                         <View style={styles.width80}>
                                             <View style={styles.rowCenter}>
                                                 <Text numberOfLines={1} style={styles.headerTextStyle}>
-                                                    {I18n.t(globalText.dashboard)}
+                                                    {t(globalText.dashboard)}
                                                 </Text>
                                             </View>
                                         </View>
@@ -565,7 +565,7 @@ const Dashboard = props => {
                                                                 <View style={styles.width20} />
                                                                 <View style={styles.width80}>
                                                                     <Text style={styles.dashProfColor}>
-                                                                        {I18n.t(globalText.myProfile)}
+                                                                        {t(globalText.myProfile)}
                                                                     </Text>
                                                                 </View>
                                                             </View>
@@ -660,7 +660,7 @@ const Dashboard = props => {
                 <View style={styles.pad15}>
                   <View>
                     <Text style={styles.dashboardStatisticText}>
-                      {I18n.t(globalText._Hi)}{' '}
+                      {t(globalText._Hi)}{' '}
                       {`${
                         basicInfo && basicInfo.first_name
                           ? basicInfo.first_name
@@ -670,7 +670,7 @@ const Dashboard = props => {
                           ? basicInfo.last_name
                           : ''
                       }!`}{' '}
-                      {I18n.t(globalText._dashbaordTextThisIsYourStatistics, {
+                      {t(globalText._dashbaordTextThisIsYourStatistics, {
                         _year: basicInfo?.membersinceyear
                           ? basicInfo?.membersinceyear
                           : '',
@@ -740,7 +740,7 @@ const Dashboard = props => {
                             {t(globalText._yourRedeemable)}
                           </Text>
                           <Text style={styles.cSurvFirstTextStyleNew}>
-                            {I18n.t(globalText._balanceToday)}
+                            {t(globalText._balanceToday)}
                           </Text>
                         </View>
                         <View style={styles.marB13}>
@@ -763,7 +763,7 @@ const Dashboard = props => {
                           style={[styles.cSurvGreenTextView, styles.marB5]}
                           onPress={() => checkEmailVerified()}>
                           <Text style={styles.cSurvGreenTextStyle}>
-                            {I18n.t(globalText._Redeem)}
+                            {t(globalText._Redeem)}
                           </Text>
                         </TouchableOpacity>
                       </View>
@@ -780,10 +780,10 @@ const Dashboard = props => {
                         />
                         <View style={styles.dashboardPointStatusText}>
                           <Text style={styles.cSurvFirstTextStyleNew}>
-                            {I18n.t(globalText._rewardPoint)}
+                            {t(globalText._rewardPoint)}
                           </Text>
                           <Text style={styles.cSurvFirstTextStyleNew}>
-                            {I18n.t(globalText.balance)}
+                            {t(globalText.balance)}
                           </Text>
                         </View>
                         <View style={styles.marB13}>
@@ -803,7 +803,7 @@ const Dashboard = props => {
                             props.navigation.navigate('PointConversion')
                           }>
                           <Text style={styles.cSurvGreenTextStyle}>
-                            {I18n.t(globalText._convert)}
+                            {t(globalText._convert)}
                           </Text>
                         </TouchableOpacity>
                       </View>
@@ -814,7 +814,7 @@ const Dashboard = props => {
                       <Text
                         numberOfLines={1}
                         style={styles.dashBoardLiveSurveyMsgNEw}>
-                        {I18n.t(globalText.liveSurvey)}
+                        {t(globalText.liveSurvey)}
                       </Text>
                       {/* <Carousel
                         // loopClonesPerSide={2}
@@ -844,9 +844,9 @@ const Dashboard = props => {
                       style={styles.dashboardLatestPollButton}>
                       <View style={styles.dashboardLatestPollButtonView}>
                         <Text>
-                          {I18n.t(globalText._goToThe)}{' '}
+                          {t(globalText._goToThe)}{' '}
                           <Text style={styles.latesPollsTextStyle}>
-                            {I18n.t(globalText._latestPolls)}
+                            {t(globalText._latestPolls)}
                           </Text>
                         </Text>
                         <FastImage
@@ -860,8 +860,8 @@ const Dashboard = props => {
 
                   <View style={[styles.padH10, styles.marT30]}>
                     <Text style={styles.dashboardProfileStatusText}>
-                      {/* {I18n.t(globalText.dashScrp)} */}
-                      {I18n.t(globalText._dashbaordComplition, {
+                      {/* {t(globalText.dashScrp)} */}
+                      {t(globalText._dashbaordComplition, {
                         _percentage: isDashboardData.percentage
                           ? isDashboardData.percentage
                           : '0%',
@@ -875,8 +875,8 @@ const Dashboard = props => {
                         buttonName={
                           isDashboardData.percentage &&
                           isDashboardData.percentage !== '100%'
-                            ? I18n.t(globalText.completeYrProfile)
-                            : I18n.t(globalText.editYourProfile)
+                            ? t(globalText.completeYrProfile)
+                            : t(globalText.editYourProfile)
                         }
                         addButtonStyle={styles.dashboardCompleteButtonText}
                         addButtonTextStyle={styles.font18}

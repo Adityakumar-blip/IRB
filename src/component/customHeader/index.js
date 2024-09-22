@@ -114,7 +114,6 @@ const CustomHeader = props => {
     const {data, message} = await AuthApi.getDataFromServer(
       Api.myProfileGetCategorySubcategory,
     );
-    console.log('data=========', data, message);
     if (!data) {
       if (message) {
         toastShow(message);

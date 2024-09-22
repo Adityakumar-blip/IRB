@@ -38,8 +38,10 @@ import EligibleCountryModal from './eligibleCountryModal';
 import LanguageModal from './languageModal';
 import {Singular, SingularConfig} from 'singular-react-native';
 import {Adjust} from 'react-native-adjust';
+import {useTranslation} from 'react-i18next';
 
 const SignUp = props => {
+  const {i18n} = useTranslation();
   const [isLangaugeData, setLangaugeData] = useState(null);
   const [showLocation, setShowLocation] = useState(false);
   const [countryCode, setCountryCode] = useState(null);
@@ -284,10 +286,11 @@ const SignUp = props => {
         setLangauge(isData[0].language);
       }
       setLangaugeData(isData && isData);
-      I18n.locale =
+      i18n.changeLanguage(
         isData && isData[0].lang_code
           ? isData[0].lang_code.toLowerCase()
-          : 'en';
+          : 'en',
+      );
       setCount(count + 1);
     } else {
       let isStaticData = {
@@ -301,7 +304,7 @@ const SignUp = props => {
       };
       await setAsyncStorage('langauge_data', JSON.stringify(isStaticData));
       setLangauge(isStaticData.language);
-      I18n.locale = 'en';
+      i18n.changeLanguage('en');
     }
   };
 
@@ -321,7 +324,9 @@ const SignUp = props => {
   const onCall = async item => {
     await setAsyncStorage('langauge_data', JSON.stringify(item && item));
     setLangauge(item.language);
-    I18n.locale = item && item.lang_code ? item.lang_code.toLowerCase() : 'en';
+    i18n.changeLanguage(
+      item && item.lang_code ? item.lang_code.toLowerCase() : 'en',
+    );
     setCount(count + 1);
   };
 
@@ -429,8 +434,6 @@ const SignUp = props => {
     }
     return 'UN';
   };
-
-  console.log('is flag code', isFlagCode);
 
   return (
     <View style={styles.container}>

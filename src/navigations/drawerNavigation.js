@@ -525,7 +525,6 @@ function Home() {
   const handleDrawerOpen = () => {
     // Your logic when the drawer opens
     Singular.event('SideMenu_open');
-    console.log('Drawer opened');
   };
 
   const handleDrawerClose = () => {

@@ -25,8 +25,10 @@ import {
   toastShow,
 } from '../../utils/customFunctions';
 import {Singular, sngLog} from 'singular-react-native';
+import {useTranslation} from 'react-i18next';
 
 const OTP = props => {
+  const {i18n} = useTranslation();
   const {onPress, isCountry} = props;
 
   const simpleValidator = useRef(new SimpleReactValidator());
@@ -285,7 +287,7 @@ const OTP = props => {
             ? data.data.data.lang_code.toLowerCase()
             : 'en';
         await setAsyncStorage('appLanguage', languageValue.toString());
-        I18n.locale = languageValue;
+        i18n.changeLanguage(languageValue);
         setErrorMessage('');
         await onPress();
       }
@@ -313,7 +315,7 @@ const OTP = props => {
       ) : null}
       <View style={styles.flexRow}>
         <View style={styles.loginPhoneInputIconView}>
-          <Feather name="edit" size={25} />
+          <Feather name="edit" size={25} style={styles.loginFieldIcon} />
         </View>
 
         <View style={styles.loginPhoneInputView}>
@@ -324,6 +326,8 @@ const OTP = props => {
             onBlur={() =>
               !allValid && simpleValidator.current.showMessageFor('phone')
             }
+            style={styles.inputStyle}
+            placeholderTextColor="#222"
           />
         </View>
       </View>
@@ -353,6 +357,8 @@ const OTP = props => {
             onChangeText={i => setOtp(i)}
             value={otp}
             maxLength={4}
+            style={styles.inputStyle}
+            placeholderTextColor="#222"
             // onBlur={() => CustomValidation.onBlurField(simpleValidator, allValid, 'OTP')}
           />
         </View>
