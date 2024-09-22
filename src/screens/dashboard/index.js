@@ -22,7 +22,7 @@ import {
   MenuProvider,
   MenuTrigger,
 } from 'react-native-popup-menu';
-// import Carousel, {Pagination} from 'react-native-snap-carousel';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -390,7 +390,7 @@ const Dashboard = props => {
             alignItems: 'center',
             width: screenWidth,
           }}>
-          {/* <Pagination
+          <Pagination
             activeDotIndex={activeSlide}
             dotsLength={dotLen}
             dotStyle={styles.dashDotStyle}
@@ -401,7 +401,7 @@ const Dashboard = props => {
             inactiveDotOpacity={0.8}
             containerStyle={styles.dashDotContainerStyle}
             carouselRef={_carousel}
-          /> */}
+          />
         </View>
       </SafeAreaView>
     );
@@ -816,7 +816,7 @@ const Dashboard = props => {
                         style={styles.dashBoardLiveSurveyMsgNEw}>
                         {t(globalText.liveSurvey)}
                       </Text>
-                      {/* <Carousel
+                      <Carousel
                         // loopClonesPerSide={2}
                         layout={'default'}
                         ref={_carousel}
@@ -832,7 +832,7 @@ const Dashboard = props => {
                         activeSlideAlignment={'start'}
                         inactiveSlideOpacity={1}
                         inactiveSlideScale={1}
-                      /> */}
+                      />
                       {pagination(isLiveSurveyData && isLiveSurveyData.length)}
                     </View>
                   )}
@@ -843,7 +843,7 @@ const Dashboard = props => {
                       }
                       style={styles.dashboardLatestPollButton}>
                       <View style={styles.dashboardLatestPollButtonView}>
-                        <Text>
+                        <Text style={{color: 'black'}}>
                           {t(globalText._goToThe)}{' '}
                           <Text style={styles.latesPollsTextStyle}>
                             {t(globalText._latestPolls)}

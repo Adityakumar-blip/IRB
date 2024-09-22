@@ -25,6 +25,7 @@ if (Text.defaultProps == null) {
 }
 Text.defaultProps.allowFontScaling = false;
 Text.defaultProps.fontFamily = '';
+// Text.defaultProps.style = {color: 'black'};
 
 if (TextInput.defaultProps == null) {
   TextInput.defaultProps = {};

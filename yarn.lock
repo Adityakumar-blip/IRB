@@ -3747,6 +3747,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-addons-shallow-compare@npm:^0.14.22":
+  version: 0.14.25
+  resolution: "@types/react-addons-shallow-compare@npm:0.14.25"
+  dependencies:
+    "@types/react": "*"
+  checksum: 5be68758a05dabc32dd67550b0eace047374c667d992b616ca9245d1969947e86c3cd5b0205b5d8a8e3f187dcb392454c7844b8950d7da0e042ee7b28a9e64d4
+  languageName: node
+  linkType: hard
+
 "@types/react-test-renderer@npm:^18.0.0":
   version: 18.3.0
   resolution: "@types/react-test-renderer@npm:18.3.0"
@@ -4086,7 +4095,7 @@ __metadata:
     react-native-screens: ^3.34.0
     react-native-share: ^11.0.2
     react-native-simple-toast: ^3.3.1
-    react-native-snap-carousel: ^3.9.1
+    react-native-snap-carousel: 4.0.0-beta.6
     react-native-svg: ^15.6.0
     react-native-swiper-flatlist: ^3.2.5
     react-native-vector-icons: ^10.1.0
@@ -9631,7 +9640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:*, prop-types@npm:^15.5.10, prop-types@npm:^15.5.7, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:*, prop-types@npm:^15.5.10, prop-types@npm:^15.5.7, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10219,16 +10228,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-snap-carousel@npm:^3.9.1":
-  version: 3.9.1
-  resolution: "react-native-snap-carousel@npm:3.9.1"
+"react-native-snap-carousel@npm:4.0.0-beta.6":
+  version: 4.0.0-beta.6
+  resolution: "react-native-snap-carousel@npm:4.0.0-beta.6"
   dependencies:
-    prop-types: ^15.6.1
+    "@types/react-addons-shallow-compare": ^0.14.22
     react-addons-shallow-compare: 15.6.2
   peerDependencies:
-    react: ">=15.0.0"
-    react-native: "*"
-  checksum: e71f6887ba8e86b4aea6d6a88c304135a7acbb5ef9173b78018fc0e6d9965da9ec1d7c794db31282dc85892c6ca89f398d07145ab3e7d1e28cf12a09c247bb9d
+    react: ">=16.0.0"
+    react-native: ">=0.58.0"
+  checksum: 32ab752009b16e8d18bd7dc7defb7e454881d2ed979dd9a00cbfb92a03317752067bab7dccc6cb7b42e3a61657f29e3e12ea1e12ac7661e5539c7be037a7cfe7
   languageName: node
   linkType: hard
 
