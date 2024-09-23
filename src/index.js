@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {firebase} from '@react-native-firebase/messaging';
 import Navigator from './navigations';
 import React, {useEffect, useState} from 'react';
@@ -324,9 +325,9 @@ const App = () => {
   return (
     <>
       <View style={{marginBottom: 40}}></View>
-      <View style={{height: 200}}>
+      {/* <View style={{height: 200}}>
         <NetworkLogger theme="dark" />
-      </View>
+      </View> */}
       <Navigator />
     </>
   );
