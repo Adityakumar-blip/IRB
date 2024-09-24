@@ -29,7 +29,7 @@ const imagesObj = {
 
   userIconStatic: memoizedFunc(
     'userIconStatic',
-    require('../assets/userImage.png'),
+    require('../assets/userImage.jpg'),
   ),
   fbIcon: memoizedFunc('fbIcon', require('../assets/fb.png')),
   linkedinIcon: memoizedFunc('linkedinIcon', require('../assets/in.png')),
@@ -164,7 +164,7 @@ const imagesObj = {
     'globalInsightIcon',
     require('../assets/globalInsight.png'),
   ),
-  referIcon: memoizedFunc('referIcon', require('../assets/b2bsurvey.png')),
+  referIcon: memoizedFunc('referIcon', require('../assets/b2bsurvey.jpg')),
 
   privacyIcon: memoizedFunc('privacyIcon', require('../assets/privacy.png')),
   helpIcon: memoizedFunc('helpIcon', require('../assets/help.png')),
@@ -284,6 +284,6 @@ const imagesObj = {
   editIcon: memoizedFunc('editIcon', require('../assets/edit.png')),
   gif1: memoizedFunc('gif1', require('../assets/gif1.gif')),
   gif2: memoizedFunc('gif2', require('../assets/gif2.gif')),
-  b2bsurvey: memoizedFunc('b2bsurvey', require('../assets/b2bsurvey.png')),
+  b2bsurvey: memoizedFunc('b2bsurvey', require('../assets/b2bsurvey.jpg')),
 };
 export default imagesObj;
