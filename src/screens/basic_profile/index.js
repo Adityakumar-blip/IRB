@@ -1,25 +1,25 @@
 /* eslint-disable no-unused-vars */
-import { useIsFocused } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, View } from "react-native";
-import CustomBackGround from "../../component/customBackground/index";
-import CustomHeader from "../../component/customHeader/index";
-import ScrollableTabViewPager from "../../component/customSwitchTabsNew/index";
-import styles from "../../helper/globalStyles";
+import {useIsFocused} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, View} from 'react-native';
+import CustomBackGround from '../../component/customBackground/index';
+import CustomHeader from '../../component/customHeader/index';
+import ScrollableTabViewPager from '../../component/customSwitchTabsNew/index';
+import styles from '../../helper/globalStyles';
 import {
   toastShow,
   getAsyncStorage,
   setAsyncStorage,
-} from "../../utils/customFunctions";
-import Basic_ProfileNew from "./basicProfile";
-import Education from "./education";
-import CustomLoader from "../../component/customLoader/index";
-import { globalText } from "../../helper/globalText";
-import I18n from "../../i18n/index";
-import Api from "../../utils/api";
-import AuthApi from "../../utils/authApi";
+} from '../../utils/customFunctions';
+import Basic_ProfileNew from './basicProfile';
+import Education from './education';
+import CustomLoader from '../../component/customLoader/index';
+import {globalText} from '../../helper/globalText';
+import I18n from '../../i18n/index';
+import Api from '../../utils/api';
+import AuthApi from '../../utils/authApi';
 
-const Basic_Profile = (props) => {
+const Basic_Profile = props => {
   const isFocused = useIsFocused();
   const [loader, setLoader] = useState(false);
   const [value, setValue] = useState({});
@@ -47,7 +47,7 @@ const Basic_Profile = (props) => {
   }, [isFocused, props.route.params]);
 
   const cleanUp = () => {
-    setValue("");
+    setValue('');
     setIndex(-1);
     setDataLoaded(false);
     setSubCategory7Data({
@@ -63,13 +63,13 @@ const Basic_Profile = (props) => {
 
   const onPageInit = async (isSelectedData, isSelectedId) => {
     let isCheckCategoryData = [];
-    const { id, data } = (await props.route) && props.route.params;
+    const {id, data} = (await props.route) && props.route.params;
     let isData = isSelectedData ? isSelectedData : data;
     const isSubCatId = isSelectedId
       ? isSelectedId
-      : isSelectedId == "0"
-        ? isSelectedId
-        : id;
+      : isSelectedId == '0'
+      ? isSelectedId
+      : id;
     setCheckValue(isSelectedId ? isSelectedId : id);
     setAllData(isData && isData);
     if (!isData.isSelected && isSubCatId == 7) {
@@ -89,7 +89,7 @@ const Basic_Profile = (props) => {
       Number(isData.items[isData.items.length - 1].sub_category_type_id) + 1;
     setEndId(endId);
     const isProfileMenuData = await JSON.parse(
-      await getAsyncStorage("myProfileData")
+      await getAsyncStorage('myProfileData'),
     );
 
     // alert(JSON.stringify(isProfileMenuData));
@@ -102,9 +102,9 @@ const Basic_Profile = (props) => {
     let isProfileMenuDataNew = {};
     if (isSubCatId == 8) {
       isProfileMenuData = await JSON.parse(
-        await getAsyncStorage("myProfileData")
+        await getAsyncStorage('myProfileData'),
       );
-      if (logicForSpecficTab == "selected") {
+      if (logicForSpecficTab == 'selected') {
         setScrollData(isProfileMenuData[1].items);
         isProfileMenuData[1].items.map(async (item, index) => {
           item.name = item.sub_category_type;
@@ -118,14 +118,14 @@ const Basic_Profile = (props) => {
         setAllData(isProfileMenuData[1]);
         setCategotyData(isProfileMenuData);
         await setAsyncStorage(
-          "myProfileData",
-          JSON.stringify([...isProfileMenuData])
+          'myProfileData',
+          JSON.stringify([...isProfileMenuData]),
         );
-      } else if (logicForSpecficTab == "none") {
+      } else if (logicForSpecficTab == 'none') {
         isProfileMenuData[1].isSelected = false;
         await setAsyncStorage(
-          "myProfileData",
-          JSON.stringify([...isProfileMenuData])
+          'myProfileData',
+          JSON.stringify([...isProfileMenuData]),
         );
         let isChangedData = [];
         isProfileMenuData[1].items.map(async (item, index) => {
@@ -143,13 +143,13 @@ const Basic_Profile = (props) => {
     }
     let isCheckData =
       (await isProfileMenuDataNew) &&
-        Object.keys(isProfileMenuDataNew).length > 0
+      Object.keys(isProfileMenuDataNew).length > 0
         ? isProfileMenuDataNew
         : isAllData;
     let endId =
       isCheckData &&
       Number(
-        isCheckData.items[isCheckData.items.length - 1].sub_category_type_id
+        isCheckData.items[isCheckData.items.length - 1].sub_category_type_id,
       ) + 1;
     setEndId(endId);
     // setLoader(true);
@@ -162,7 +162,7 @@ const Basic_Profile = (props) => {
             toastShow(
               I18n.t(globalText._myProfileUpdatedSucessfully, {
                 _value: isCheckData.items[index - 1].sub_category_type,
-              })
+              }),
             );
           }, 100);
           setValue(item.sub_category_type_id);
@@ -173,12 +173,12 @@ const Basic_Profile = (props) => {
       setDataLoaded(true);
       //setLoader(false);
     } else {
-      props.navigation.navigate("Dashboard");
+      props.navigation.navigate('Dashboard');
       setTimeout(() => {
         toastShow(
           I18n.t(globalText._myProfileCategoryUpdatedSucessfully, {
             _value: isCheckData.category_name,
-          })
+          }),
         );
       }, 100);
     }
@@ -187,23 +187,24 @@ const Basic_Profile = (props) => {
 
   const onCall = async (item, item1, index) => {
     let isProfileMenuData = await JSON.parse(
-      await getAsyncStorage("myProfileData")
+      await getAsyncStorage('myProfileData'),
     );
     let newData = isProfileMenuData[index];
+    console.log('sidebar pressed=====================', item, item1, index);
     setDataLoaded(false);
     onPageInit(newData, item1.sub_category_type_id);
   };
 
-  const onShowTabs = async (isShow) => {
+  const onShowTabs = async isShow => {
     let isProfileMenuData = await JSON.parse(
-      await getAsyncStorage("myProfileData")
+      await getAsyncStorage('myProfileData'),
     );
-    if (isShow == "show") {
+    if (isShow == 'show') {
       isProfileMenuData[1].isSelected = true;
       setScrollData(isProfileMenuData[1].items);
       setAllData(isProfileMenuData[1]);
       setCategotyData(isProfileMenuData);
-    } else if (isShow == "unShow") {
+    } else if (isShow == 'unShow') {
       let isChangedData = [];
       isProfileMenuData[1].isSelected = false;
       isProfileMenuData[1].items.map(async (item, index) => {
@@ -221,7 +222,7 @@ const Basic_Profile = (props) => {
   const onSaveAnswer = async () => {
     // isCheck == checkValue && setLoader(true);
     let isProfileMenuData = await JSON.parse(
-      await getAsyncStorage("myProfileData")
+      await getAsyncStorage('myProfileData'),
     );
     if (isSubCategory7Data.allData && isSubCategory7Data.allData.length > 0) {
       const payload = {
@@ -229,40 +230,40 @@ const Basic_Profile = (props) => {
         sub_category_type_id: Number(7),
         pre_selected_question_arr:
           isSubCategory7Data.uniqueChars &&
-            isSubCategory7Data.uniqueChars.length > 0
+          isSubCategory7Data.uniqueChars.length > 0
             ? isSubCategory7Data.uniqueChars
             : [],
       };
-      const { data, message, success } = await AuthApi.postDataToServer(
+      const {data, message, success} = await AuthApi.postDataToServer(
         Api.myFamilySaveSelectedAnswer,
-        payload
+        payload,
       );
       if (!data) {
         // toastShow(message && message);
         return;
       }
-      let isKey = data.data && data.data.key ? data.data.key : "";
-      if (isKey == "selected") {
+      let isKey = data.data && data.data.key ? data.data.key : '';
+      if (isKey == 'selected') {
         isProfileMenuData[1].isSelected = true;
-      } else if (isKey == "none") {
+      } else if (isKey == 'none') {
         isProfileMenuData[1].isSelected = true;
       }
       await setAsyncStorage(
-        "myProfileData",
-        JSON.stringify([...isProfileMenuData])
+        'myProfileData',
+        JSON.stringify([...isProfileMenuData]),
       );
     }
   };
 
-  const onChangeAnswerCheck = async (isValue) => {
+  const onChangeAnswerCheck = async isValue => {
     let isChangedData = [];
-    let isNewData = await JSON.parse(await getAsyncStorage("myProfileData"));
+    let isNewData = await JSON.parse(await getAsyncStorage('myProfileData'));
     if (isValue) {
       isNewData[1].isSelected = true;
     } else {
       isNewData[1].isSelected = false;
     }
-    await setAsyncStorage("myProfileData", JSON.stringify([...isNewData]));
+    await setAsyncStorage('myProfileData', JSON.stringify([...isNewData]));
     if (!isValue) {
       isNewData[1].items.map(async (item, index) => {
         if (index == 0) {
@@ -276,11 +277,11 @@ const Basic_Profile = (props) => {
     }
   };
 
-  const onSelectAnswer = async (isValue) => {
+  const onSelectAnswer = async isValue => {
     let isNewDataOnew = await JSON.parse(
-      await getAsyncStorage("myProfileData")
+      await getAsyncStorage('myProfileData'),
     );
-    if (isValue == "selected") {
+    if (isValue == 'selected') {
       isNewDataOnew[1].isSelected = true;
       setCategotyData(isNewDataOnew);
     } else {
@@ -298,7 +299,7 @@ const Basic_Profile = (props) => {
 
   const onCheckTabData = async () => {
     let isProfileMenuData = await JSON.parse(
-      await getAsyncStorage("myProfileData")
+      await getAsyncStorage('myProfileData'),
     );
     if (isProfileMenuData && isProfileMenuData[1].isSelected) {
       setCategotyData(isProfileMenuData);
@@ -338,7 +339,7 @@ const Basic_Profile = (props) => {
                       isIndex={isIndex && isIndex}
                       headers={scrollData && scrollData}
                       itemName={async (item, index) => {
-                        await onCheckTabData();
+                        console.log('tabs pressed', item, index);
                         if (value == 7) {
                           onSaveAnswer();
                           setValue(item.sub_category_type_id);
@@ -359,15 +360,15 @@ const Basic_Profile = (props) => {
 
                 {value == 0 && (
                   <Basic_ProfileNew
-                    onChangePage={(id) => {
+                    onChangePage={id => {
                       onPassValues(id, null);
                     }}
-                    onChangeAnswer={(isValue) => {
+                    onChangeAnswer={isValue => {
                       onChangeAnswerCheck(isValue);
                     }}
-                  // onSelectAnswer={isValue => {
-                  //     onSelectAnswer(isValue);
-                  // }}
+                    // onSelectAnswer={isValue => {
+                    //     onSelectAnswer(isValue);
+                    // }}
                   />
                 )}
 
@@ -378,11 +379,11 @@ const Basic_Profile = (props) => {
                     onChangePage={(id, logicForSpecficTab) => {
                       onPassValues(id, logicForSpecficTab);
                     }}
-                    onChnageTab={(isShow) => onShowTabs(isShow)}
+                    onChnageTab={isShow => onShowTabs(isShow)}
                     onSaveUserData={(allData, uniqueChars) => {
                       isSubCategory7Data.allData = allData;
                       isSubCategory7Data.uniqueChars = uniqueChars;
-                      setSubCategory7Data({ ...isSubCategory7Data });
+                      setSubCategory7Data({...isSubCategory7Data});
                     }}
                   />
                 )}

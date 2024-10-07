@@ -324,9 +324,9 @@ const App = () => {
   return (
     <>
       <View style={{marginBottom: 40}}></View>
-      {/* <View style={{height: 200}}>
+      <View style={{height: 200}}>
         <NetworkLogger theme="dark" />
-      </View> */}
+      </View>
       <Navigator />
     </>
   );

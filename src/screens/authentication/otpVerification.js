@@ -348,6 +348,167 @@ const OtpVerification = props => {
     };
   });
 
+  // const onVerify = async () => {
+  //   const formValid = simpleValidator.current.allValid();
+  //   if (!formValid) {
+  //     setAllValid(false);
+  //     simpleValidator.current.showMessages();
+  //     return;
+  //   }
+  //   setVerifyDisable(true);
+
+  //   // setTimeout(() => {
+  //   //   setVerifyDisable(false);
+  //   // },4000);
+  //   const randomOtpMobile = await getAsyncStorage('Random_Otp_Mobile');
+  //   const randomOtpEmail = await getAsyncStorage('Random_Otp_Email');
+  //   if (isCheckEmailOrPhone.phone && otpMobile == randomOtpMobile) {
+  //     isVerifiyOtp.isMobile = true;
+  //     setVerifiyOtp({...isVerifiyOtp});
+  //   }
+  //   if (isCheckEmailOrPhone.phone && !isVerifiyOtp.isMobile) {
+  //     setErrorMessage(I18n.t(globalText._mobileOTPIsIncorect));
+  //     return;
+  //   }
+  //   if (isCheckEmailOrPhone.email && otpEmail == randomOtpEmail) {
+  //     isVerifiyOtp.isEmail = true;
+  //     setVerifiyOtp({...isVerifiyOtp});
+  //   }
+  //   if (isCheckEmailOrPhone.email && !isVerifiyOtp.isEmail) {
+  //     setErrorMessage(I18n.t(globalText._emailOTPIsIncorect));
+  //     return;
+  //   }
+  //   let checkValidation = false;
+  //   if (isCheckEmailOrPhone.phone) {
+  //     if (isVerifiyOtp.isMobile) {
+  //       checkValidation = true;
+  //     } else {
+  //       checkValidation = false;
+  //       return;
+  //     }
+  //   }
+  //   if (isCheckEmailOrPhone.phone) {
+  //     if (isVerifiyOtp.isMobile) {
+  //       checkValidation = true;
+  //     } else {
+  //       checkValidation = false;
+  //       return;
+  //     }
+  //   }
+  //   if (isCheckEmailOrPhone.email) {
+  //     if (isVerifiyOtp.isEmail) {
+  //       checkValidation = true;
+  //     } else {
+  //       checkValidation = false;
+  //       return;
+  //     }
+  //   }
+
+  //   if (checkValidation) {
+  //     setErrorMessage('');
+  //     setSignUpLoader(true);
+  //     let time_taken_min = await getAsyncStorage('TIME_TO_SIGN_UP');
+  //     let timeZoneValue = await getAsyncStorage('timeZone');
+  //     let timeZone = JSON.parse(timeZoneValue);
+  //     let timeZoneCheck = RNLocalize.getTimeZone();
+  //     let timeTaken = null;
+  //     if (time_taken_min) {
+  //       timeTaken = timeTakeToSignUp(time_taken_min);
+  //     }
+  //     const payload = {
+  //       country_id: isDetail.country_id,
+  //       device_id: isDetail.device_id,
+  //       device_type: isDetail.device_type,
+  //       dob: isDetail.dob ? getFormatedDate(isDetail.dob, 'yyyy-mm-dd') : '',
+  //       email: isDetail.email,
+  //       first_name: isDetail.first_name,
+  //       gender: isDetail.gender,
+  //       ip_address: isDetail.ip_address,
+  //       language_id: isDetail.language_id,
+  //       last_name: isDetail.last_name,
+  //       password: isDetail.password,
+  //       phone_number: isDetail.phone_number,
+  //       device_name: isDetail.device_name,
+  //       idfa_gaid: adId,
+  //       source: isDetail.source,
+  //       verification_method:
+  //         isDetail.verification_method == 3 || isDetail.verification_method == 4
+  //           ? 4
+  //           : isDetail.verification_method,
+  //       referer_url: isDetail.referer_url ? isDetail.referer_url : 'null',
+  //       vid: isDetail.vid ? isDetail.vid : '0',
+  //       gdpr_status: isDetail.gdpr_status ? isDetail.gdpr_status : 0,
+  //       last_form_submit: isDetail.last_form_submit,
+  //       visiting_ip: isDetail.visiting_ip,
+  //       registration_ip: isDetail.registration_ip,
+  //       login_with: isDetail.login_with,
+  //       source_user_id2: isDetail.source_user_id2
+  //         ? isDetail.source_user_id2
+  //         : 0,
+  //       reference: isDetail.reference ? isDetail.reference : 0,
+  //       time_to_complete_reg_form: timeTaken
+  //         ? Number(timeTaken).toFixed(2)
+  //         : null,
+  //       timeZone: timeZone ? timeZone : timeZoneCheck,
+  //     };
+  //     setVerifyDisable(false);
+  //     const {data, message} = await AuthApi.postDataToServer(
+  //       Api.signupSignUP,
+  //       payload,
+  //     );
+  //     if (!data) {
+  //       setSignUpLoader(false);
+  //       setSignUpTime(0);
+  //       setTimeout(() => {
+  //         if (
+  //           message ==
+  //           'Thank you for showing interest in Opinion Bureau! We are not taking registrations at the moment. Kindly check back in a few days.'
+  //         ) {
+  //           toastShow(I18n.t(globalText.thankYouComeAgain));
+  //         } else if (typeof message == 'object') {
+  //           typeof message.m == 'string'
+  //             ? setErrorMessage(
+  //                 I18n.t(globalText.eligibaleErrorDateOfBirthNew, {
+  //                   _age: message.age ? message.age : '',
+  //                 }),
+  //               )
+  //             : toastShow(message && message);
+  //         } else {
+  //           toastShow(I18n.t(globalText.somethingWentWrong));
+  //         }
+  //       }, 100);
+  //       setVerifyDisable(false);
+  //       return;
+  //     }
+
+  //     let isMessage =
+  //       data && data.data && data.data.message ? data.data.message : '';
+  //     let isData = data && data.data;
+  //     await onDemoInvitation(isData);
+  //     setTimeout(() => {
+  //       if (isMessage == 'User signup successfully') {
+  //         toastShow(I18n.t(globalText.userSignUpSuccesfully));
+  //       } else {
+  //         toastShow(isMessage);
+  //       }
+  //     }, 100);
+  //     await removeAsyncStorage('TIME_TO_SIGN_UP');
+  //     let demoCount = '0';
+  //     await setAsyncStorage('demoCount', demoCount.toString());
+  //     setSignUpTime(10);
+  //     await proceedToLogin(
+  //       isDetail.email,
+  //       isDetail.password,
+  //       isDetail.device_id,
+  //       isDetail.phone_number,
+  //       isDetail.device_name,
+  //       isDetail.country_code,
+  //     );
+  //   } else {
+  //     setVerifyDisable(false);
+  //   }
+  // };
+
   const onVerify = async () => {
     const formValid = simpleValidator.current.allValid();
     if (!formValid) {
@@ -357,156 +518,136 @@ const OtpVerification = props => {
     }
     setVerifyDisable(true);
 
-    // setTimeout(() => {
-    //   setVerifyDisable(false);
-    // },4000);
     const randomOtpMobile = await getAsyncStorage('Random_Otp_Mobile');
     const randomOtpEmail = await getAsyncStorage('Random_Otp_Email');
-    if (isCheckEmailOrPhone.phone && otpMobile == randomOtpMobile) {
-      isVerifiyOtp.isMobile = true;
-      setVerifiyOtp({...isVerifiyOtp});
-    }
-    if (isCheckEmailOrPhone.phone && !isVerifiyOtp.isMobile) {
-      setErrorMessage(I18n.t(globalText._mobileOTPIsIncorect));
-      return;
-    }
-    if (isCheckEmailOrPhone.email && otpEmail == randomOtpEmail) {
-      isVerifiyOtp.isEmail = true;
-      setVerifiyOtp({...isVerifiyOtp});
-    }
-    if (isCheckEmailOrPhone.email && !isVerifiyOtp.isEmail) {
-      setErrorMessage(I18n.t(globalText._emailOTPIsIncorect));
-      return;
-    }
-    let checkValidation = false;
+    let otpValid = true;
+
     if (isCheckEmailOrPhone.phone) {
-      if (isVerifiyOtp.isMobile) {
-        checkValidation = true;
+      if (otpMobile == randomOtpMobile) {
+        isVerifiyOtp.isMobile = true;
+        setVerifiyOtp({...isVerifiyOtp});
       } else {
-        checkValidation = false;
-        return;
+        otpValid = false;
+        setErrorMessage(I18n.t(globalText._mobileOTPIsIncorect));
       }
     }
-    if (isCheckEmailOrPhone.phone) {
-      if (isVerifiyOtp.isMobile) {
-        checkValidation = true;
-      } else {
-        checkValidation = false;
-        return;
-      }
-    }
+
     if (isCheckEmailOrPhone.email) {
-      if (isVerifiyOtp.isEmail) {
-        checkValidation = true;
+      if (otpEmail == randomOtpEmail) {
+        isVerifiyOtp.isEmail = true;
+        setVerifiyOtp({...isVerifiyOtp});
       } else {
-        checkValidation = false;
-        return;
+        otpValid = false;
+        setErrorMessage(I18n.t(globalText._emailOTPIsIncorect));
       }
     }
 
-    if (checkValidation) {
-      setErrorMessage('');
-      setSignUpLoader(true);
-      let time_taken_min = await getAsyncStorage('TIME_TO_SIGN_UP');
-      let timeZoneValue = await getAsyncStorage('timeZone');
-      let timeZone = JSON.parse(timeZoneValue);
-      let timeZoneCheck = RNLocalize.getTimeZone();
-      let timeTaken = null;
-      if (time_taken_min) {
-        timeTaken = timeTakeToSignUp(time_taken_min);
-      }
-      const payload = {
-        country_id: isDetail.country_id,
-        device_id: isDetail.device_id,
-        device_type: isDetail.device_type,
-        dob: isDetail.dob ? getFormatedDate(isDetail.dob, 'yyyy-mm-dd') : '',
-        email: isDetail.email,
-        first_name: isDetail.first_name,
-        gender: isDetail.gender,
-        ip_address: isDetail.ip_address,
-        language_id: isDetail.language_id,
-        last_name: isDetail.last_name,
-        password: isDetail.password,
-        phone_number: isDetail.phone_number,
-        device_name: isDetail.device_name,
-        idfa_gaid: adId,
-        source: isDetail.source,
-        verification_method:
-          isDetail.verification_method == 3 || isDetail.verification_method == 4
-            ? 4
-            : isDetail.verification_method,
-        referer_url: isDetail.referer_url ? isDetail.referer_url : 'null',
-        vid: isDetail.vid ? isDetail.vid : '0',
-        gdpr_status: isDetail.gdpr_status ? isDetail.gdpr_status : 0,
-        last_form_submit: isDetail.last_form_submit,
-        visiting_ip: isDetail.visiting_ip,
-        registration_ip: isDetail.registration_ip,
-        login_with: isDetail.login_with,
-        source_user_id2: isDetail.source_user_id2
-          ? isDetail.source_user_id2
-          : 0,
-        reference: isDetail.reference ? isDetail.reference : 0,
-        time_to_complete_reg_form: timeTaken
-          ? Number(timeTaken).toFixed(2)
-          : null,
-        timeZone: timeZone ? timeZone : timeZoneCheck,
-      };
+    if (!otpValid) {
       setVerifyDisable(false);
-      const {data, message} = await AuthApi.postDataToServer(
-        Api.signupSignUP,
-        payload,
-      );
-      if (!data) {
-        setSignUpLoader(false);
-        setSignUpTime(0);
-        setTimeout(() => {
-          if (
-            message ==
-            'Thank you for showing interest in Opinion Bureau! We are not taking registrations at the moment. Kindly check back in a few days.'
-          ) {
-            toastShow(I18n.t(globalText.thankYouComeAgain));
-          } else if (typeof message == 'object') {
-            typeof message.m == 'string'
-              ? setErrorMessage(
-                  I18n.t(globalText.eligibaleErrorDateOfBirthNew, {
-                    _age: message.age ? message.age : '',
-                  }),
-                )
-              : toastShow(message && message);
-          } else {
-            toastShow(I18n.t(globalText.somethingWentWrong));
-          }
-        }, 100);
-        setVerifyDisable(false);
-        return;
-      }
+      return;
+    }
 
-      let isMessage =
-        data && data.data && data.data.message ? data.data.message : '';
-      let isData = data && data.data;
-      await onDemoInvitation(isData);
+    setErrorMessage('');
+    setSignUpLoader(true);
+    let time_taken_min = await getAsyncStorage('TIME_TO_SIGN_UP');
+    let timeZoneValue = await getAsyncStorage('timeZone');
+    let timeZone = JSON.parse(timeZoneValue);
+    let timeZoneCheck = RNLocalize.getTimeZone();
+    let timeTaken = null;
+    if (time_taken_min) {
+      timeTaken = timeTakeToSignUp(time_taken_min);
+    }
+    const payload = {
+      country_id: isDetail.country_id,
+      device_id: isDetail.device_id,
+      device_type: isDetail.device_type,
+      dob: isDetail.dob ? getFormatedDate(isDetail.dob, 'yyyy-mm-dd') : '',
+      email: isDetail.email,
+      first_name: isDetail.first_name,
+      gender: isDetail.gender,
+      ip_address: isDetail.ip_address,
+      language_id: isDetail.language_id,
+      last_name: isDetail.last_name,
+      password: isDetail.password,
+      phone_number: isDetail.phone_number,
+      device_name: isDetail.device_name,
+      idfa_gaid: adId,
+      source: isDetail.source,
+      verification_method:
+        isDetail.verification_method == 3 || isDetail.verification_method == 4
+          ? 4
+          : isDetail.verification_method,
+      referer_url: isDetail.referer_url ? isDetail.referer_url : 'null',
+      vid: isDetail.vid ? isDetail.vid : '0',
+      gdpr_status: isDetail.gdpr_status ? isDetail.gdpr_status : 0,
+      last_form_submit: isDetail.last_form_submit,
+      visiting_ip: isDetail.visiting_ip,
+      registration_ip: isDetail.registration_ip,
+      login_with: isDetail.login_with,
+      source_user_id2: isDetail.source_user_id2 ? isDetail.source_user_id2 : 0,
+      reference: isDetail.reference ? isDetail.reference : 0,
+      time_to_complete_reg_form: timeTaken
+        ? Number(timeTaken).toFixed(2)
+        : null,
+      timeZone: timeZone ? timeZone : timeZoneCheck,
+    };
+
+    const {data, message} = await AuthApi.postDataToServer(
+      Api.signupSignUP,
+      payload,
+    );
+    if (!data) {
+      setSignUpLoader(false);
+      setSignUpTime(0);
       setTimeout(() => {
-        if (isMessage == 'User signup successfully') {
-          toastShow(I18n.t(globalText.userSignUpSuccesfully));
+        if (
+          message ==
+          'Thank you for showing interest in Opinion Bureau! We are not taking registrations at the moment. Kindly check back in a few days.'
+        ) {
+          toastShow(I18n.t(globalText.thankYouComeAgain));
+        } else if (typeof message == 'object') {
+          typeof message.m == 'string'
+            ? setErrorMessage(
+                I18n.t(globalText.eligibaleErrorDateOfBirthNew, {
+                  _age: message.age ? message.age : '',
+                }),
+              )
+            : toastShow(message && message);
         } else {
-          toastShow(isMessage);
+          toastShow(I18n.t(globalText.somethingWentWrong));
         }
       }, 100);
-      await removeAsyncStorage('TIME_TO_SIGN_UP');
-      let demoCount = '0';
-      await setAsyncStorage('demoCount', demoCount.toString());
-      setSignUpTime(10);
-      await proceedToLogin(
-        isDetail.email,
-        isDetail.password,
-        isDetail.device_id,
-        isDetail.phone_number,
-        isDetail.device_name,
-        isDetail.country_code,
-      );
-    } else {
       setVerifyDisable(false);
+      return;
     }
+
+    let isMessage =
+      data && data.data && data.data.message ? data.data.message : '';
+    let isData = data && data.data;
+    await onDemoInvitation(isData);
+    setTimeout(() => {
+      if (isMessage == 'User signup successfully') {
+        toastShow(I18n.t(globalText.userSignUpSuccesfully));
+      } else {
+        toastShow(isMessage);
+      }
+    }, 100);
+    await removeAsyncStorage('TIME_TO_SIGN_UP');
+    let demoCount = '0';
+    await setAsyncStorage('demoCount', demoCount.toString());
+    setSignUpTime(10);
+    console.log('is Detail', isDetail);
+
+    await proceedToLogin(
+      isDetail.email,
+      isDetail.password,
+      isDetail.device_id,
+      isDetail.phone_number,
+      isDetail.device_name,
+      isDetail.country_code,
+    );
+
+    setVerifyDisable(false);
   };
 
   const proceedToLogin = async (

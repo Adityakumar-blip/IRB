@@ -33,7 +33,7 @@ import GlobalImages from '../../helper/globalImages';
 
 import CustomButton from '../customButton/index';
 import CustomRadioButton from '../customRadio/index';
-import {toastShow} from '../../utils/customFunctions';
+import {setAsyncStorage, toastShow} from '../../utils/customFunctions';
 
 const CustomHeader = props => {
   const {
@@ -295,6 +295,7 @@ const CustomHeader = props => {
                 <MenuOption
                   style={{}}
                   onSelect={() => {
+                    console.log('sidebaar index', index);
                     onCall(item, item1, index);
                   }}>
                   <Text style={styles.menuBlueColor}>
@@ -545,7 +546,7 @@ const CustomHeader = props => {
                     <FlatList
                       data={categoryData} // Array of data to render
                       renderItem={renderItem} // Function to render each item
-                      keyExtractor={item => item.id} // Function to extract unique keys from items
+                      keyExtractor={(item, index) => item.id} // Function to extract unique keys from items
                       extraData={currentTime}
                     />
                   </View>

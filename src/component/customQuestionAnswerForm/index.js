@@ -1778,7 +1778,6 @@ const CustomQuestionAnswerForm = props => {
                                                   width: '80%',
                                                 }}
                                                 numberOfLines={1}>
-                                                {/* {isCheckBox?'teue ':'false'} */}
                                                 {item?.questionContent}
                                               </Text>
                                               <Text

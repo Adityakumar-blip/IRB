@@ -121,7 +121,7 @@ const CompleteProfile = props => {
     isData.password = '';
     setData({...isData});
     // const deviceId = DeviceInfo.getDeviceId();
-    const deviceId = DeviceInfo.getUniqueId();
+    const deviceId = await DeviceInfo.getUniqueId();
     const deviceType = Platform.OS || DeviceInfo.getDeviceType();
     isData.device_id = deviceId;
     isData.device_type = deviceType;

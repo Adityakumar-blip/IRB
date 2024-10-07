@@ -382,7 +382,7 @@ const styles = StyleSheet.create({
     color: colors.OXFORD_BLUE,
     flexWrap: 'wrap',
     // whiteSpace: "pre-line"
-    width: '100%',
+    // width: '100%',
   },
   CustomDynamicFormMainView: {
     paddingBottom: 10,
