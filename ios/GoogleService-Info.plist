@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>244782268392-cd7i80g7meceuvs8883t328sjp4amgbq.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAa36Lahk4UslWENptccgmm8Kmj-lC-pNM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>244782268392</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>test.opinionbureau.com</string>
+	<key>PROJECT_ID</key>
+	<string>opinionbureau-1f805</string>
+	<key>STORAGE_BUCKET</key>
+	<string>opinionbureau-1f805.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:244782268392:ios:ec5cb72b63cd894646ae5d</string>
+	<key>DATABASE_URL</key>
+	<string>https://opinionbureau-1f805.firebaseio.com</string>
+</dict>
+</plist>
